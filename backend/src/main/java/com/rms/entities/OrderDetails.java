@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @AttributeOverride(name="id",column=@Column(name="order_detail_id"))
-public class OrderDetails {
+public class OrderDetails extends BaseEntity {
     
     @ManyToOne
     @JoinColumn(name = "order_id") 

@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @AttributeOverride(name="id",column=@Column(name="order_id"))
 @ToString(callSuper = true)
-public class Orders {
+public class Orders extends BaseEntity {
     // Many-to-One: Many orders can belong to one reservation
     @ManyToOne
     @JoinColumn(name = "reservation_id", nullable=false)
