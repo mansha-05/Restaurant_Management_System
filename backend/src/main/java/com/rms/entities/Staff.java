@@ -23,7 +23,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class Staff {
+public class Staff extends BaseEntity {
     @Column(nullable = false,length = 150)
 
     private String name;

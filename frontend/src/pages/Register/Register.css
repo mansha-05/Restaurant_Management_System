@@ -1,0 +1,155 @@
+.register-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to bottom right, #fff8f3, #ffefeb);
+  padding-bottom: 40px;
+}
+
+.top-icon {
+  background: linear-gradient(to right, #ff5000, #ff2600);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 34px;
+}
+
+.title {
+  font-size: 38px;
+  font-weight: 700;
+  margin-top: 15px;
+  color: black;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.register-card {
+  width: 50%;
+  background: white;
+  padding: 40px 50px;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+}
+
+.form-title {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.form-subtitle {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  width: 100%;
+  /* margin-bottom: 5px; */
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.input-box input {
+  border: none;
+  width: 100%;
+  outline: none;
+  font-size: 15px;
+}
+
+.input-box i {
+  font-size: 18px;
+  color: #777;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.terms {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-create {
+  width: 100%;
+  background: linear-gradient(to right, #ff5000, #ff2600);
+  color: white;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 17px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.divider {
+  margin: 25px 0;
+  text-align: center;
+  position: relative;
+}
+
+.divider span {
+  background: white;
+  padding: 0 10px;
+  color: #777;
+}
+
+.btn-google {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  background: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-google i {
+  margin-right: 8px;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-link a {
+  color: #ff2600;
+  font-weight: 600;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .register-card {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+}

@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @AttributeOverride(name="id",column=@Column(name="payment_id"))
 @ToString(callSuper = true)
-public class Payment {
+public class Payment extends BaseEntity {
     // The actual Foreign Key column 'order_id' will be created here
     @OneToOne
     @JoinColumn(name = "order_id", unique = true, nullable=false)
