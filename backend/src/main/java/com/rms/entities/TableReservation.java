@@ -1,4 +1,5 @@
 package com.rms.entities;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "table_reservation")
-@AttributeOverride(name="id", column=@Column(name="reservation_id"))
+@AttributeOverride(name = "id", column = @Column(name = "reservation_id"))
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -27,9 +28,12 @@ public class TableReservation extends BaseEntity {
     @JoinColumn(name = "table_id")
     private TableEntity table;
 
-    private LocalDateTime reservation_date;
-    private LocalDateTime reservation_start;
-    private LocalDateTime reservation_end;
+    @Column(name = "reservation_date")
+    private LocalDateTime reservationDate;
+    @Column(name = "reservation_start")
+    private LocalDateTime reservationStart;
+    @Column(name = "reservation_end")
+    private LocalDateTime reservationEnd;
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;

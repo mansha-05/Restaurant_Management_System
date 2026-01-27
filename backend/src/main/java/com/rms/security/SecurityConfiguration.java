@@ -37,11 +37,13 @@ public class SecurityConfiguration
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(request -> request
-            	    .requestMatchers(HttpMethod.POST, "/users/signup").permitAll()
-            	    .requestMatchers(HttpMethod.POST, "/users/signin").permitAll()
-            	    .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-            	    .requestMatchers(HttpMethod.OPTIONS).permitAll()
-            	    .anyRequest().authenticated()
+            		.requestMatchers(HttpMethod.OPTIONS).permitAll()
+            		.anyRequest().permitAll()
+//            	    .requestMatchers(HttpMethod.POST, "/users/signup").permitAll()
+//            	    .requestMatchers(HttpMethod.POST, "/users/signin").permitAll()
+//            	    .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+//            	    .requestMatchers(HttpMethod.OPTIONS).permitAll()
+//            	    .anyRequest().authenticated()
             	)
             .addFilterBefore(customJwtFilter, UsernamePasswordAuthenticationFilter.class);
 

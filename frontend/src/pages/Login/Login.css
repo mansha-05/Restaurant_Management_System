@@ -166,3 +166,14 @@ footer {
   color: #777;
   font-size: 14px;
 }
+
+.error-text {
+  color: #e53935;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.input-error {
+  border: 1px solid #e53935 !important;
+}

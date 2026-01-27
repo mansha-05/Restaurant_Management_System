@@ -1,0 +1,12 @@
+.dish-grid {
+  display: flex;
+  flex-wrap: wrap;      /* allows cards to go to next row */
+  gap: 20px;            /* space between cards */
+  justify-content: flex-start; /* or center if you want them centered */
+}
+
+.dish-card {
+  flex: 1 1 250px;      /* min width 250px, grows if space available */
+  max-width: 300px;     /* optional max width */
+  box-sizing: border-box;
+}

@@ -36,6 +36,7 @@ public class UserController {
 	@PostMapping("/signup")
 	public ResponseEntity<RegisterResponseDto> signup(@RequestBody @Valid RegisterRequestDto dto)
 	{
+		System.out.println(dto);
 		System.out.println("Signup called: " + dto.getEmail());
 		return ResponseEntity.ok(userService.signup(dto));
 	}

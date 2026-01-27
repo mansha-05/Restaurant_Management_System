@@ -1,5 +1,7 @@
 package com.rms.entities;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,4 +30,7 @@ public class Orders extends BaseEntity {
     private Double totalAmount;
     @Column(name="order_date")
     private LocalDate orderDate;
+    @Column(name = "order_time")
+    private LocalDateTime orderTime;
+
 }
