@@ -1,12 +1,12 @@
-import { useState } from 'react'
 import {Navigate, Routes, Route} from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
-import AdminHome from './pages/Admin/AdminHome/AdminHome'
-import AdminDashboard from './pages/Admin/AdminDashboard/AdminDashboard'
-import RoleSelection from './pages/RoleSelection/RoleSelection'
+//import AdminHome from './pages/Admin/AdminHome/AdminHome'
+//import AdminDashboard from './pages/Admin/AdminDashboard/AdminDashboard'
+//import RoleSelection from './pages/RoleSelection/RoleSelection'
 import Menu from './pages/Menu/Menu'
+import Cart from './pages/Cart/Cart'
 import Orders from './pages/Orders/Orders'
 import './App.css'
 import Reserve from './pages/Reserve/Reserve';
@@ -31,10 +31,11 @@ function App() {
       <Route path="register" element={<Register />} />
     </Route>
   
-        <Route path='/admin' element={<AdminHome/>}>
+        {/*<Route path='/admin' element={<AdminHome/>}>
           {/* <Route path='/admin_home' element={<AdminHome/>}/> */}
-          <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
-        </Route>
+          {/*<Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+        </Route>*/}
+        <Route path="/cart" element={<Cart />} />
         </Routes>
         </AuthProvider>
       <ToastContainer/>

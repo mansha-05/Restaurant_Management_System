@@ -1,0 +1,26 @@
+.category-container {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  padding: 10px 18px;
+  background-color: #eee;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.category-btn.active {
+  background-color: #c4490f;
+  color: white;
+}
+
+.category-btn:hover {
+  transform: scale(1.05);
+}

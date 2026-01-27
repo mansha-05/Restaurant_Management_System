@@ -1,0 +1,154 @@
+/* NAVBAR CONTAINER */
+.navbar {
+  width: 100%;
+  padding: 12px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  font-family: sans-serif;
+}
+
+/* LEFT SECTION */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-box1 {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(to right, #ff7a00, #ff4500);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-icon {
+  width: 26px;
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff4500;
+}
+
+/* CENTER MENU */
+.nav-center {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-item {
+  padding: 6px 12px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  color: #444;
+}
+
+.nav-item a
+{
+  text-decoration: none;
+  color:#444;
+}
+
+.nav-item:hover {
+  background: linear-gradient(to right, #ff7a00, #ff4500);
+  color: #000;
+}
+
+/* .nav-item {
+  font-size: 16px;
+  cursor: pointer;
+  color: #444;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  color: #000;
+  background: linear-gradient(to right, #ff7a00, #ff4500);
+  width: 75px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* RIGHT SECTION */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.nav-icon {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* HAMBURGER BUTTON */
+.hamburger {
+  display: none;
+  font-size: 25px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+  display: none;
+}
+
+.mobile-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 780px) {
+  .nav-center,
+  .nav-icon {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+  .mobile-menu {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+  }
+
+  .mobile-item {
+    text-decoration: none;
+    color: #333;
+    padding: 14px 0;
+    font-size: 17px;
+    font-weight: 500;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+  }
+
+  .mobile-item:hover {
+    background: #f8f8f8;
+  }
+}

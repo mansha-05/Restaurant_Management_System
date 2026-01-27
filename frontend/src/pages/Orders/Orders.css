@@ -1,0 +1,83 @@
+.orders-wrapper {
+  background: #faf7f2;
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.page-heading {
+  font-size: 32px;
+  color: #8b2f00;
+  margin-bottom: 30px;
+}
+
+/* Grid */
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 25px;
+}
+
+/* Card */
+.order-card {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.order-top h3 {
+  color: #8b2f00;
+  margin: 0;
+  font-size: 22px;
+}
+
+/* Date */
+.order-date {
+  margin-top: 6px;
+  color: #777;
+  font-size: 14px;
+}
+
+/* Items */
+.items-block {
+  margin-top: 22px;
+}
+
+.items-title {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 15px;
+}
+
+/* Divider */
+hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 18px 0;
+}
+
+/* Total */
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.total-price {
+  color: #ff5a00;
+}
+
+/* Table */
+.table-text {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #777;
+}
