@@ -44,7 +44,8 @@ public class User extends BaseEntity implements UserDetails
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return List.of(new SimpleGrantedAuthority(this.role.name()));
+		return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
+
 	}
 
 	@Override
@@ -52,6 +53,11 @@ public class User extends BaseEntity implements UserDetails
 		// TODO Auto-generated method stub
 		return this.email;
 	}
+	
+	@Override public boolean isAccountNonExpired() { return true; }
+	@Override public boolean isAccountNonLocked() { return true; }
+	@Override public boolean isCredentialsNonExpired() { return true; }
+	@Override public boolean isEnabled() { return true; }
 
    
 }

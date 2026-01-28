@@ -51,7 +51,7 @@ public class UserController {
 		// downcast Principal (Object -> UserEntity)
 		User user = (User)fullyAuthenticated.getPrincipal();
 		String token = jwtUtils.generateToken(user);
-		AuthResp.Data data = new AuthResp.Data(user.getId(), user.getEmail(), token);
+		AuthResp.Data data = new AuthResp.Data(user.getId(), user.getEmail(), token, user.getRole().name());
 		return ResponseEntity.ok(new AuthResp("success", "Login successful", data));
 	}
 }

@@ -30,5 +30,7 @@ export async function login(email, password) {
         return response.data
     }catch(ex) {
         console.log(`exception: `, ex)
+        console.log("Login error:", ex.response?.data || ex.message);
+        return { status: "error", error: "Invalid credentials or unauthorized" };
     }
 }

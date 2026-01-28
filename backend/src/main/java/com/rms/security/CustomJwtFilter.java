@@ -28,15 +28,15 @@ public class CustomJwtFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		String path = request.getServletPath();
-//		if (path.equals("/users/signin") ||
-//		        path.equals("/users/signup") ||
-//		        path.startsWith("/swagger-ui") ||
-//		        path.startsWith("/v3/api-docs")) {
-//
-//		        filterChain.doFilter(request, response);
-//		        return;
-//		    }
+		String path = request.getServletPath();
+		if (path.equals("/users/signin") ||
+		        path.equals("/users/signup") ||
+		        path.startsWith("/swagger-ui") ||
+		        path.startsWith("/v3/api-docs")) {
+
+		        filterChain.doFilter(request, response);
+		        return;
+		    }
 		// check if jwt exists in request auth header
 		String headerValue = request.getHeader("Authorization");
 		if(headerValue != null && headerValue.startsWith("Bearer "))
@@ -48,7 +48,7 @@ public class CustomJwtFilter extends OncePerRequestFilter {
 			String role = claims.get("role", String.class);
 			JWTDTO dto = new JWTDTO(claims.get("user_id", Long.class), role);
 			// add this in Authentication object
-			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(dto, null, List.of(new SimpleGrantedAuthority(role)));
+			UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(dto, null, List.of(new SimpleGrantedAuthority("ROLE_"+role)));
 			// add it under security context holder
 			SecurityContextHolder.getContext().setAuthentication(auth);
 			log.info("add security context");

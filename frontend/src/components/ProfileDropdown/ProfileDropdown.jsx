@@ -1,46 +1,71 @@
 import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../providers/AuthProvider";
 import "./ProfileDropdown.css";
-const ProfileDropdown = () => {
-  const [open, setOpen] = useState(false);
-  const dropdownRef = useRef(null);
 
-  // Close dropdown when clicking outside
+export default function ProfileDropdown({ onLogout }) {
+  const { user } = useAuth();
+  const [open, setOpen] = useState(false);
+  const ref = useRef();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+    const handler = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
         setOpen(false);
       }
     };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
 
   return (
-    <div className="profile-wrapper" ref={dropdownRef}>
-      <button
-        className="profile-btn"
-        onClick={() => setOpen((prev) => !prev)}
-      >
+    <div className="profile-wrapper" ref={ref}>
+      <div className="profile-icon" onClick={() => setOpen(!open)}>
         <i className="fa-regular fa-user"></i>
-
-      </button>
+      </div>
 
       {open && (
-        <div className="dropdown">
-          <div className="dropdown-header">
-            <strong>My Account</strong>
-            <span>Customer</span>
+        <div className="profile-dropdown">
+          <div className="profile-header">
+            <div className="profile-title">My Account</div>
+            <div className="profile-role">{user?.role?.toLowerCase()}</div>
           </div>
 
-          <a href="/profile">Profile</a>
-          <a href="/feedback">Feedback</a>
-          <hr />
-          <a href="/logout">Logout</a>
+          <div
+            className="profile-item"
+            onClick={() => {
+              navigate("/profile");
+              setOpen(false);
+            }}
+          >
+            <i className="fa-regular fa-user"></i>
+            Profile
+          </div>
+
+          <div
+            className="profile-item"
+            onClick={() => {
+              navigate("/feedback");
+              setOpen(false);
+            }}
+          >
+            <i className="fa-regular fa-comment"></i>
+            Feedback
+          </div>
+
+          <div
+            className="profile-item logout"
+            onClick={() => {
+              onLogout();
+              setOpen(false);
+            }}
+          >
+            <i className="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </div>
         </div>
       )}
     </div>
   );
-};
-
-export default ProfileDropdown;
+}

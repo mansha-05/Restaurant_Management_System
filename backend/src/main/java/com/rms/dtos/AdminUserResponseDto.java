@@ -1,5 +1,7 @@
 package com.rms.dtos;
 
+import java.time.LocalDate;
+
 import com.rms.entities.UserRole;
 
 import lombok.AllArgsConstructor;
@@ -18,4 +20,5 @@ public class AdminUserResponseDto {
 	private String phone;
 	private String city;
 	private UserRole role;
+	private LocalDate createdOn;
 }

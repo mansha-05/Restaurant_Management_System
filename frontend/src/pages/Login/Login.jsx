@@ -63,14 +63,20 @@ function Login() {
       setUser({
         userId: response["data"]["userId"],
         email: response["data"]["email"],
+        role: response["data"]["role"]
       });
-
+      console.log(response)
       console.log("User set in context:", {
         userId: response.data.userId,
         email: response.data.email,
+        role: response.data.role
       });
 
-      navigate("/home");
+      const role = response.data.role
+      if(role == "ADMIN") navigate("/admin/dashboard");
+      else if(role == "MANAGER") navigate("/manager/dashboard");
+      else navigate("/home");
+      
     } else {
       toast.error(response["error"]);
     }

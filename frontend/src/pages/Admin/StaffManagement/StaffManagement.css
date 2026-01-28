@@ -1,0 +1,159 @@
+.staff-page {
+  padding: 20px;
+}
+
+.staff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.staff-header h1 {
+  font-size: 38px;
+  color: #7a2b1d;
+  margin: 0;
+}
+
+.staff-header p {
+  margin: 5px 0 0;
+  color: #555;
+}
+
+.add-btn {
+  background: #f4511e;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.search-box {
+  background: white;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  padding-left: 10px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.staff-table {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1.4fr 0.7fr 0.7fr 0.8fr 0.8fr 0.6fr;
+  padding: 15px 20px;
+  align-items: center;
+}
+
+.table-header {
+  font-weight: bold;
+  color: #555;
+  border-bottom: 1px solid #eee;
+}
+
+.table-row {
+  border-bottom: 1px solid #f2f2f2;
+  background: white;
+}
+
+.table-row:hover {
+  background: #fafafa;
+}
+
+.staff-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #ff5722;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 2px 0;
+  color: #444;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+/* ROLES */
+.role-chef {
+  background: #ffe7cc;
+  color: #b85600;
+}
+
+.role-manager {
+  background: #f0e6ff;
+  color: #7a3edb;
+}
+
+/* SHIFTS */
+.shift-morning {
+  background: #fff8c2;
+  color: #b59b00;
+}
+
+.shift-evening {
+  background: #ffe4cc;
+  color: #b85c00;
+}
+
+/* ACTION BUTTONS */
+.actions button {
+  border: none;
+  background: white;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.edit-btn:hover {
+  background: #e8e8e8;
+}
+
+.delete-btn {
+  color: red;
+}

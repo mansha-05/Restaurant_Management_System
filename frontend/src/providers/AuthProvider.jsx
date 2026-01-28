@@ -7,8 +7,13 @@ function AuthProvider({children}) {
     // create state to store logged user information
     const [user, setUser] = useState(null)
 
+    const logout = () => {
+        localStorage.removeItem("token");
+        setUser(null);
+    };
+
     return (
-        <AuthContext.Provider value={{user, setUser}}>
+        <AuthContext.Provider value={{user, setUser, logout}}>
             {children}
         </AuthContext.Provider>
     )
