@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import { toast } from "react-toastify";
 import { login } from "../../services/users";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 
 function Login() {
@@ -13,7 +13,8 @@ function Login() {
 
   const { setUser } = useAuth();
   const navigate = useNavigate();
-
+  const location=useLocation();
+  const redirectTo=location.state?.redirectTo||"/home";
   // const passwordRegex = /((?=.\d)(?=.[a-z]).{5,20})/;
 
   const onLogin = async () => {
@@ -70,7 +71,7 @@ function Login() {
         email: response.data.email,
       });
 
-      navigate("/home");
+      navigate(redirectTo);
     } else {
       toast.error(response["error"]);
     }

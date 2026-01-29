@@ -1,0 +1,248 @@
+:root {
+  --primary-color: #d35400;
+  --secondary-color: #ff4d00;
+  --bg-color: #fffaf5;
+  --card-bg: #ffffff;
+  --text-main: #333333;
+  --text-light: #777777;
+  --confirmed-bg: #e6f7ed;
+  --confirmed-text: #2e7d32;
+  --pending-bg: #fff3cd;
+  --pending-text: #856404;
+  --cancelled-bg: #fdecea;
+  --cancelled-text: #c62828;
+  --expired-bg: #f0f0f0;
+  --expired-text: #666666;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.manager-res-container {
+  padding: 32px;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* HEADER SECTION */
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-header h1 {
+  font-size: 32px;
+  color: #7b2d1f;
+  margin: 0;
+  font-weight: 700;
+}
+
+.page-header p {
+  color: var(--text-light);
+  margin: 4px 0 0 0;
+  font-size: 14px;
+}
+
+/* ACTION BAR */
+.action-bar {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+
+.search-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 0 16px;
+  transition: border-color 0.2s;
+}
+
+.search-wrapper:focus-within {
+  border-color: var(--secondary-color);
+}
+
+.search-icon {
+  color: #999;
+  margin-right: 12px;
+  font-size: 16px;
+}
+
+.search-wrapper input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 12px 0;
+  font-size: 14px;
+  outline: none;
+  color: var(--text-main);
+}
+
+.filter-dropdown {
+  padding: 12px 16px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #f8f9fa;
+  font-size: 14px;
+  color: var(--text-main);
+  outline: none;
+  cursor: pointer;
+  min-width: 180px;
+}
+
+/* TABLE CARD */
+.table-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.res-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.res-table thead th {
+  text-align: left;
+  background: #fdfdfd;
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.res-table tbody tr {
+  transition: background 0.2s;
+}
+
+.res-table tbody tr:hover {
+  background-color: #fffcf9;
+}
+
+.res-table td {
+  padding: 20px 16px;
+  border-bottom: 1px solid #f8f8f8;
+  vertical-align: middle;
+}
+
+.res-table tr:last-child td {
+  border-bottom: none;
+}
+
+.res-id {
+  font-weight: 600;
+  color: var(--text-main);
+  font-size: 13px;
+}
+
+.customer-name {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* CELL STACK */
+.cell-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cell-stack span {
+  font-size: 14px;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cell-stack small {
+  font-size: 12px;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-text {
+  color: #999;
+}
+
+/* BADGES */
+.badge {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-transform: lowercase;
+}
+
+.badge.confirmed {
+  background: var(--confirmed-bg);
+  color: var(--confirmed-text);
+}
+
+.badge.pending {
+  background: var(--pending-bg);
+  color: var(--pending-text);
+}
+
+.badge.cancelled {
+  background: var(--cancelled-bg);
+  color: var(--cancelled-text);
+}
+
+.badge.expired {
+  background: var(--expired-bg);
+  color: var(--expired-text);
+}
+
+/* STATUS SELECT */
+.status-select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  font-size: 13px;
+  color: var(--text-main);
+  cursor: pointer;
+  outline: none;
+  min-width: 120px;
+  transition: border-color 0.2s;
+}
+
+.status-select:hover {
+  border-color: #ccc;
+}
+
+.status-select:focus {
+  border-color: var(--secondary-color);
+}
+
+/* SPECIAL REQUESTS CELL */
+.special-requests {
+  max-width: 250px;
+  color: var(--text-light);
+  font-style: italic;
+  font-size: 13px;
+}
+
+.centered-text {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-light);
+  font-style: italic;
+}

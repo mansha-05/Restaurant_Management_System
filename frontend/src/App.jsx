@@ -1,46 +1,61 @@
-import {Navigate, Routes, Route} from 'react-router-dom'
-import Home from './pages/Home/Home'
-import Login from './pages/Login/Login'
-import Register from './pages/Register/Register'
-//import AdminHome from './pages/Admin/AdminHome/AdminHome'
-//import AdminDashboard from './pages/Admin/AdminDashboard/AdminDashboard'
-//import RoleSelection from './pages/RoleSelection/RoleSelection'
-import Menu from './pages/Menu/Menu'
-import Cart from './pages/Cart/Cart'
-import Orders from './pages/Orders/Orders'
-import './App.css'
-import Reserve from './pages/Reserve/Reserve';
-import HomeContents from './pages/HomeContents/HomeContents'
-import {ToastContainer} from 'react-toastify'
-import AuthProvider from './providers/AuthProvider'
+import { Navigate, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
+import Menu from "./pages/Menu/Menu";
+import Cart from "./pages/Cart/Cart";
+import Orders from "./pages/Orders/Orders";
+import Reserve from "./pages/Reserve/Reserve";
+import HomeContents from "./pages/HomeContents/HomeContents";
+import { ToastContainer } from "react-toastify";
+import AuthProvider from "./providers/AuthProvider";
+import ManagerHome from './pages/Manager/ManagerHome/ManagerHome'
+
+// import ManagerLayout from "./pages/Manager/ManagerLayout";
+// import ManagerDashboard from "./pages/Manager/ManagerDashboard/ManagerDashboard";
+// import ReservationsManagement from "./pages/Manager/ReservationsManagement";
+// Import the new Table Management component
+
+import TableManagement from "./components/table/TableManagement"; 
+
+import "./App.css";
+import ReservationsManagement from './pages/Manager/ReservationsManagement/ReservationsManagement';
 
 function App() {
-
   return (
-    <div>
-      <AuthProvider>
+    <AuthProvider>
       <Routes>
-  <Route path="/" element={<Navigate to="/home" replace />} />
+        {/* Default Redirect */}
+        <Route path="/" element={<Navigate to="/home" replace />} />
 
-    <Route path="/home" element={<Home />}>
-      <Route index element={<HomeContents/>} />
-      <Route path="menu" element={<Menu />} />
-      <Route path="orders" element={<Orders />} />
-      <Route path="reserve" element={<Reserve />} />
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
-    </Route>
-  
-        {/*<Route path='/admin' element={<AdminHome/>}>
-          {/* <Route path='/admin_home' element={<AdminHome/>}/> */}
-          {/*<Route path='/admin/dashboard' element={<AdminDashboard/>}/>
-        </Route>*/}
+        {/* CUSTOMER ROUTES */}
+        <Route path="/home" element={<Home />}>
+          <Route index element={<HomeContents />} />
+          <Route path="menu" element={<Menu />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="reserve" element={<Reserve />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+
+        {/* MANAGER ROUTES */}
+        <Route path='/manager' element={<ManagerHome/>}>
+          <Route path='/manager' element={<ManagerHome/>}/>
+          {/* <Route path='/manager/dashboard' element={<ManagerDashboard/>}/> */}
+          {/* <Route path='/manager/orders' element={<OrdersManagement/>}/> */}
+          <Route path='/manager/reservations' element={<ReservationsManagement/>}/>
+          {/* <Route path='/manager/menu' element={<MenuManagement/>}/> */}
+          <Route path='/manager/table' element={<TableManagement/>}/>
+          {/* <Route path='/manager/feedback' element={<FeedbackManagement/>}/> */}
+        </Route>
+
+        {/* COMMON */}
         <Route path="/cart" element={<Cart />} />
-        </Routes>
-        </AuthProvider>
-      <ToastContainer/>
-    </div>
-  )
+      </Routes>
+
+      <ToastContainer />
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
