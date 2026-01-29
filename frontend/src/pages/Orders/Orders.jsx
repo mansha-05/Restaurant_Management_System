@@ -1,65 +1,87 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 import "./Orders.css";
+import { useAuth } from "../../providers/AuthProvider";
 
 const Orders = () => {
+const navigate = useNavigate();
 
+  const { user } = useAuth();
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/orders/user/1")
-      .then(res => setOrders(res.data))
-      .catch(err => console.error(err));
-  }, []);
+    if (user?.userId) {
+      axios
+        .get(`http://localhost:8080/orders/user/${user.userId}`)
+        .then(res => setOrders(res.data))
+        .catch(err => console.log(err));
+    }
+  }, [user]);
+
+   const myClick = () => {
+    navigate("/home/login", {state:{ redirectTo : "/home/orders"}});
+  };
+
+  if (!user) {
+    return (
+      <div className="blur-container">
+        <div className="blur-overlay"></div>
+
+        <div className="login-popup">
+          <h3>Please login</h3>
+          <p>Login to view your orders</p>
+
+          <button onClick={myClick}>Login</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="orders-wrapper">
+    <div className="orders-page">
 
-      <h2 className="page-heading">Active Orders</h2>
+      <h2>Your Orders</h2>
 
-      <div className="orders-grid">
+      {orders.length === 0 ? (
+        <p>No orders found</p>
+      ) : (
+        <div className="orders-grid">
+          {orders.map((order, index) => (
+            <div key={order.orderId} className="order-card">
 
-        {orders.map(order => (
-          <div className="order-card" key={order.orderId}>
+              {/* Header */}
+              <div className="order-top">
+                <h3>Order #ORD-{String(index + 1).padStart(3, "0")}</h3>
+                <p>{order.orderDate} at {order.orderTime}</p>
+              </div>
 
-            {/* Header */}
-            <div className="order-top">
-              <h3>Order #{order.orderId}</h3>
-            </div>
+              {/* Items */}
+              <div className="items-title">Items:</div>
 
-            {/* Date */}
-            <p className="order-date">
-              {order.orderDate} at {order.orderTime}
-            </p>
-
-            {/* Items */}
-            <div className="items-block">
-              <p className="items-title">Items:</p>
-
-              {order.items.map((item, index) => (
-                <div className="item-row" key={index}>
+              {order.items.map((item, i) => (
+                <div key={i} className="item-row">
                   <span>{item.quantity}x {item.itemName}</span>
                   <span>₹{item.price}</span>
                 </div>
               ))}
+
+              <hr />
+
+              {/* Total */}
+              <div className="total-row">
+                <b>Total</b>
+                <b className="total-price">₹{order.totalAmount}</b>
+              </div>
+
+              {/* Table */}
+              <p className="table-text">Table: #{order.tableNo}</p>
+
             </div>
-
-            <hr />
-
-            {/* Total */}
-            <div className="total-row">
-              <span>Total</span>
-              <span className="total-price">₹{order.totalAmount}</span>
-            </div>
-
-            {/* Table */}
-            <p className="table-text">Table: #{order.tableNo}</p>
-
-          </div>
-        ))}
-
-      </div>
+          ))}
+        </div>
+      )}
 
     </div>
   );

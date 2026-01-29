@@ -1,116 +1,155 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import StaffModal from "../../../components/StaffModal/StaffModal";
 import "./StaffManagement.css";
-// import { FaSearch, FaEnvelope, FaPhone, FaTrash, FaEdit } from "react-icons/fa";
 
-function StaffManagement() {
-//   const staffData = [
-//     {
-//       id: "STF-001",
-//       name: "Marco Rossi",
-//       avatar:
-//         "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg",
-//       email: "marco@restaurant.com",
-//       phone: "+1 (555) 111-2222",
-//       role: "chef",
-//       shift: "morning",
-//       salary: "$65,000",
-//       joinDate: "1/15/2023",
-//     },
-//     {
-//       id: "STF-002",
-//       name: "Anna Martinez",
-//       avatar: "",
-//       email: "anna@restaurant.com",
-//       phone: "+1 (555) 222-3333",
-//       role: "manager",
-//       shift: "evening",
-//       salary: "$55,000",
-//       joinDate: "6/1/2022",
-//     },
-//   ];
+const Staff = () => {
 
-//   const getAvatar = (avatar, name) => {
-//     if (avatar) return <img src={avatar} alt={name} className="avatar-img" />;
+  const [staffList, setStaffList] = useState([]);
+  const [editingStaff, setEditingStaff] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-//     return (
-//       <div className="avatar-placeholder">
-//         {name.split(" ").map((n) => n[0]).join("")}
-//       </div>
-//     );
-//   };
+  // =========================
+  // GET ALL STAFF
+  // =========================
+  const fetchStaff = async () => {
+    try {
+      const res = await axios.get("http://localhost:8080/staff/all");
+      setStaffList(res.data);
+    } catch (err) {
+      console.log("Fetch failed", err);
+    }
+  };
 
-//   return (
-//     <div className="staff-page">
-//       <div className="staff-header">
-//         <div>
-//           <h1>Staff Management</h1>
-//           <p>Manage restaurant staff and employees</p>
-//         </div>
+  useEffect(() => {
+    fetchStaff();
+  }, []);
 
-//         <button className="add-btn">+ Add Staff Member</button>
-//       </div>
+  // =========================
+  // ADD STAFF
+  // =========================
+  const addStaff = async (data) => {
+    try {
+      await axios.post("http://localhost:8080/staff/add", data);
+      fetchStaff();
+    } catch (err) {
+      console.log("Add failed", err);
+    }
+  };
 
-//       <div className="search-box">
-//         <FaSearch size={18} />
-//         <input type="text" placeholder="Search staff members..." />
-//       </div>
+  // =========================
+  // UPDATE STAFF
+  // =========================
+  const updateStaff = async (data) => {
+    try {
+      await axios.put(
+        `http://localhost:8080/staff/update/${editingStaff.id}`,
+        data
+      );
+      fetchStaff();
+    } catch (err) {
+      console.log("Update failed", err);
+    }
+  };
 
-//       <div className="staff-table">
-//         <div className="table-header">
-//           <span>Staff Member</span>
-//           <span>Contact</span>
-//           <span>Role</span>
-//           <span>Shift</span>
-//           <span>Salary</span>
-//           <span>Join Date</span>
-//           <span>Actions</span>
-//         </div>
+  // =========================
+  // DELETE STAFF
+  // =========================
+  const deleteStaff = async (id) => {
+    if (!window.confirm("Delete staff member?")) return;
 
-//         {staffData.map((staff) => (
-//           <div className="table-row" key={staff.id}>
-//             <div className="staff-info">
-//               {getAvatar(staff.avatar, staff.name)}
-//               <div>
-//                 <h4>{staff.name}</h4>
-//                 <p>{staff.id}</p>
-//               </div>
-//             </div>
+    try {
+      await axios.delete(
+        `http://localhost:8080/staff/delete/${id}`
+      );
+      fetchStaff();
+    } catch (err) {
+      console.log("Delete failed", err);
+    }
+  };
 
-//             <div className="contact-info">
-//               <p>
-//                 <FaEnvelope /> {staff.email}
-//               </p>
-//               <p>
-//                 <FaPhone /> {staff.phone}
-//               </p>
-//             </div>
+  // =========================
+  // SAVE FROM MODAL
+  // =========================
+  const handleSave = (data) => {
+    if (editingStaff) {
+      updateStaff(data);
+    } else {
+      addStaff(data);
+    }
 
-//             <div>
-//               <span className={`badge role-${staff.role}`}>{staff.role}</span>
-//             </div>
+    setShowModal(false);
+    setEditingStaff(null);
+  };
 
-//             <div>
-//               <span className={`badge shift-${staff.shift}`}>
-//                 {staff.shift}
-//               </span>
-//             </div>
+  return (
+    <div className="staff-container">
 
-//             <div>{staff.salary}</div>
-//             <div>{staff.joinDate}</div>
+      <button
+        onClick={() => {
+          setEditingStaff(null);
+          setShowModal(true);
+        }}
+      >
+        Add Staff Member
+      </button>
 
-//             <div className="actions">
-//               <button className="edit-btn">
-//                 <FaEdit />
-//               </button>
-//               <button className="delete-btn">
-//                 <FaTrash />
-//               </button>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-}
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Salary</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
 
-export default StaffManagement;
+        <tbody>
+          {staffList.map((staff) => (
+            <tr key={staff.id}>
+              <td>{staff.name}</td>
+              <td>{staff.role}</td>
+              <td>{staff.email}</td>
+              <td>{staff.contactNo}</td>
+              <td>{staff.salary}</td>
+
+              <td>
+                <button
+                  onClick={() => {
+                    setEditingStaff(staff);
+                    setShowModal(true);
+                  }}
+                >
+                  Edit
+                </button>
+
+                <button
+                  style={{ marginLeft: "8px", background: "#dc3545" }}
+                  onClick={() => deleteStaff(staff.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {showModal && (
+        <StaffModal
+          editingStaff={editingStaff}
+          onSave={handleSave}
+          closeModal={() => {
+            setShowModal(false);
+            setEditingStaff(null);
+          }}
+        />
+      )}
+
+    </div>
+  );
+};
+
+export default Staff;

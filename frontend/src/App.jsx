@@ -23,6 +23,7 @@ import ReservationsManagement from './pages/Manager/ReservationsManagement/Reser
 import MenuManagement from './pages/Manager/MenuManagement/MenuManagement'
 import TableManagement from './pages/Manager/TableManagement/TableManagement'
 import FeedbackManagement from './pages/Manager/FeedbackManagement/FeedbackManagement'
+import Feedback from './pages/Feedback/Feedback'
 
 function App() {
 
@@ -39,6 +40,8 @@ function App() {
       <Route path="reserve" element={<Reserve />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+      <Route path="feedback" element={<Feedback />} />
+      <Route path="cart" element={<Cart />} />
     </Route>
   
         <Route path='/admin' element={<AdminHome/>}>
@@ -57,7 +60,7 @@ function App() {
           <Route path='/manager/table' element={<TableManagement/>}/>
           <Route path='/manager/feedback' element={<FeedbackManagement/>}/>
         </Route>
-        <Route path="/cart" element={<Cart />} />
+        
         </Routes>
         </AuthProvider>
       <ToastContainer/>

@@ -55,7 +55,7 @@ const Navbar = () => {
       {/* Right */}
       <div className="nav-right">
         {/* Cart */}
-        <Link to="/cart" style={{ position: "relative" }}>
+        <Link to="/home/cart" style={{ position: "relative" }}>
           🛒
           {totalQuantity > 0 && (
             <span

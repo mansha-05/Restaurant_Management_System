@@ -1,159 +1,183 @@
-.staff-page {
-  padding: 20px;
+/* ===== Page Layout ===== */
+
+.staff-container {
+  padding: 30px;
+  background-color: #fffaf5;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
 }
 
-.staff-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* ===== Add Button ===== */
+
+.staff-container > button {
+  background-color: #ff7a00;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 20px;
 }
 
-.staff-header h1 {
-  font-size: 38px;
-  color: #7a2b1d;
-  margin: 0;
+.staff-container > button:hover {
+  background-color: #e56c00;
 }
 
-.staff-header p {
-  margin: 5px 0 0;
-  color: #555;
+/* ===== Table ===== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
 }
 
-.add-btn {
-  background: #f4511e;
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+}
+
+tr:hover {
+  background-color: #fafafa;
+}
+
+/* ===== Edit Button ===== */
+
+td button {
+  background-color: #007bff;
   color: white;
   border: none;
-  padding: 12px 18px;
-  font-size: 16px;
-  border-radius: 8px;
+  padding: 7px 14px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.search-box {
-  background: white;
-  border: 1px solid #ddd;
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  border-radius: 12px;
-  margin: 20px 0;
+td button:hover {
+  background-color: #0056b3;
+}
+
+/* ===== MODAL ===== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-}
-
-.search-box input {
-  border: none;
-  outline: none;
-  padding-left: 10px;
-  width: 100%;
-  font-size: 16px;
-}
-
-.staff-table {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  margin-top: 10px;
-}
-
-.table-header,
-.table-row {
-  display: grid;
-  grid-template-columns: 1.4fr 1.4fr 0.7fr 0.7fr 0.8fr 0.8fr 0.6fr;
-  padding: 15px 20px;
-  align-items: center;
-}
-
-.table-header {
-  font-weight: bold;
-  color: #555;
-  border-bottom: 1px solid #eee;
-}
-
-.table-row {
-  border-bottom: 1px solid #f2f2f2;
-  background: white;
-}
-
-.table-row:hover {
-  background: #fafafa;
-}
-
-.staff-info {
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.avatar-img {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.avatar-placeholder {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: #ff5722;
-  color: white;
-  display: flex;
   justify-content: center;
-  align-items: center;
-  font-weight: bold;
+  z-index: 999;
 }
 
-.contact-info p {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 2px 0;
-  color: #444;
+/* ===== Modal Box ===== */
+
+.modal-box {
+  background: white;
+  width: 380px;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.25);
+  animation: popUp 0.3s ease;
 }
 
-.badge {
-  padding: 4px 12px;
-  border-radius: 20px;
-  text-transform: capitalize;
+@keyframes popUp {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ===== Modal Heading ===== */
+
+.modal-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ===== Form Inputs ===== */
+
+.modal-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
   font-size: 14px;
 }
 
-/* ROLES */
-.role-chef {
-  background: #ffe7cc;
-  color: #b85600;
+.modal-box input:focus {
+  outline: none;
+  border-color: #ff7a00;
 }
 
-.role-manager {
-  background: #f0e6ff;
-  color: #7a3edb;
+/* ===== Buttons Area ===== */
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
 }
 
-/* SHIFTS */
-.shift-morning {
-  background: #fff8c2;
-  color: #b59b00;
-}
+/* Save / Update */
 
-.shift-evening {
-  background: #ffe4cc;
-  color: #b85c00;
-}
-
-/* ACTION BUTTONS */
-.actions button {
+.modal-actions button[type="submit"] {
+  background-color: #28a745;
+  color: white;
   border: none;
-  background: white;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 9px 18px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
 }
 
-.edit-btn:hover {
-  background: #e8e8e8;
+.modal-actions button[type="submit"]:hover {
+  background-color: #218838;
 }
 
-.delete-btn {
-  color: red;
+/* Cancel */
+
+.modal-actions button[type="button"] {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-actions button[type="button"]:hover {
+  background-color: #c82333;
+}
+
+.modal-box input,
+.modal-box select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+.modal-box select {
+  background-color: white;
+  cursor: pointer;
+}
+
+.modal-box input:focus,
+.modal-box select:focus {
+  border-color: #ff9800;
+  box-shadow: 0 0 4px rgba(255, 152, 0, 0.6);
 }
