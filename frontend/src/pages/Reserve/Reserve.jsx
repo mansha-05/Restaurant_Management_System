@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useAuth } from "../../providers/AuthProvider";
 import "./Reserve.css";
 import {
   fetchAvailableTables,
@@ -8,67 +11,67 @@ import {
 } from "../../services/reservationApi";
 
 const Reserve = () => {
-  const userId = 1;
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
-  /* ================= FILTER STATES ================= */
-  const [date, setDate] = useState("2026-01-25");
+  /* ================= INITIAL DATE ================= */
+  const today = new Date().toISOString().split("T")[0];
+
+  /* ================= STATE MANAGEMENT ================= */
+  const [date, setDate] = useState(today);
   const [startTime, setStartTime] = useState("12:00");
   const [endTime, setEndTime] = useState("14:00");
   const [guests, setGuests] = useState(2);
-
-  /* ================= TABLE STATES ================= */
   const [tables, setTables] = useState([]);
   const [selectedTable, setSelectedTable] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  /* ================= PAST RESERVATIONS ================= */
   const [pastReservations, setPastReservations] = useState([]);
   const [loadingPast, setLoadingPast] = useState(true);
 
-  /* ================= HELPERS ================= */
-  const normalizeTime = (time) => (time.length === 5 ? `${time}:00` : time);
+  /* ================= UTILS ================= */
+  const normalizeTime = (time) =>
+    time.length === 5 ? `${time}:00` : time;
 
-  /* ================= FETCH PAST RESERVATIONS ================= */
+  /* ================= FETCH RESERVATION HISTORY ================= */
   useEffect(() => {
+    if (!user) {
+      setPastReservations([]);
+      setLoadingPast(false);
+      return;
+    }
+
     const loadPastReservations = async () => {
       try {
-        const response = await fetchPastReservations(userId);
-        setPastReservations(response.data);
+        setLoadingPast(true);
+        const response = await fetchPastReservations(user.userId);
+        setPastReservations(response.data || []);
       } catch (error) {
-        console.error("Failed to load past reservations", error);
+        console.error("Failed to load history", error);
       } finally {
         setLoadingPast(false);
       }
     };
 
     loadPastReservations();
-  }, [userId]);
+  }, [user]);
 
-  /* ================= AUTO FETCH AVAILABLE TABLES ================= */
+  /* ================= FETCH AVAILABLE TABLES ================= */
   useEffect(() => {
     if (!date || !startTime || !endTime || !guests) return;
-
-    if (startTime >= endTime) {
-      setTables([]);
-      return;
-    }
 
     const fetchTables = async () => {
       try {
         setLoading(true);
-
         const payload = {
           date,
           startTime: normalizeTime(startTime),
           endTime: normalizeTime(endTime),
           guests,
         };
-
         const response = await fetchAvailableTables(payload);
-        setTables(response.data);
-        setSelectedTable(null);
+        setTables(response.data || []);
       } catch (error) {
-        console.error("Failed to fetch available tables", error);
         setTables([]);
       } finally {
         setLoading(false);
@@ -83,9 +86,17 @@ const Reserve = () => {
   const handleReserve = async () => {
     if (!selectedTable) return;
 
+    if (!user) {
+      toast.warning("Please login to confirm your reservation");
+      navigate("/home/login", {
+        state: { redirectTo: "/home/reserve" },
+      });
+      return;
+    }
+
     try {
       const payload = {
-        userId,
+        userId: user.userId,
         tableId: selectedTable.tableId,
         date,
         startTime: normalizeTime(startTime),
@@ -93,13 +104,14 @@ const Reserve = () => {
       };
 
       await reserveTable(payload);
-      alert("Reservation successful");
+      toast.success("Reservation confirmed successfully!");
 
-      const response = await fetchPastReservations(userId);
-      setPastReservations(response.data);
+      // Refresh history
+      const response = await fetchPastReservations(user.userId);
+      setPastReservations(response.data || []);
+      setSelectedTable(null);
     } catch (error) {
-      console.error("Reservation failed", error);
-      alert("Reservation failed");
+      toast.error("Reservation failed. Please try again.");
     }
   };
 
@@ -107,27 +119,20 @@ const Reserve = () => {
   const handleCancel = async (reservationId) => {
     try {
       await cancelReservation(reservationId);
+      toast.success("Reservation cancelled");
 
-      setPastReservations((prev) =>
-        prev.map((r) =>
-          r.reservationId === reservationId
-            ? { ...r, status: "CANCELLED" }
-            : r
-        )
-      );
+      const response = await fetchPastReservations(user.userId);
+      setPastReservations(response.data || []);
     } catch (error) {
-      console.error("Cancel failed", error);
-      alert("Cancel failed");
+      toast.error("Cancellation failed");
     }
   };
 
   return (
     <div className="reserve-container">
       <h2>Reserve a Table</h2>
-      <p className="subtitle">
-        Select your preferred date, time, and party size to view available tables
-      </p>
 
+      {/* Filters */}
       <div className="filters row">
         <div className="col-md-3 mb-2">
           <input
@@ -171,12 +176,9 @@ const Reserve = () => {
         </div>
       </div>
 
+      {/* Available Tables */}
       <h3>Available Tables ({tables.length})</h3>
-
       {loading && <p>Loading tables...</p>}
-      {!loading && tables.length === 0 && (
-        <p>No tables available for the selected time.</p>
-      )}
 
       <div className="tables-grid">
         {tables.map((table) => (
@@ -188,8 +190,8 @@ const Reserve = () => {
             onClick={() => setSelectedTable(table)}
           >
             <h4>Table {table.tableNo}</h4>
-            <p>👥 Up to {table.capacity} Guests</p>
-            <p className="price">₹{table.reservationPrice} / table</p>
+            <p>👥 Capacity: {table.capacity}</p>
+            <p className="price">₹{table.reservationPrice}</p>
           </div>
         ))}
       </div>
@@ -202,21 +204,15 @@ const Reserve = () => {
         Confirm Reservation
       </button>
 
-      <div className="policy">
-        <strong>Reservation Policy:</strong>
-        <ul>
-          <li>Reservations must be made at least 2 hours in advance</li>
-          <li>Table will be held for 15 minutes past reservation time</li>
-          <li>Please call us for groups larger than 8 people</li>
-          <li>Cancellations must be made 24 hours in advance</li>
-        </ul>
-      </div>
+      {/* Reservation History */}
+      <h2 className="past-title">Your Reservations History</h2>
 
-      <h2 className="past-title">Reservations</h2>
+      {loadingPast && <p>Loading history...</p>}
 
-      {loadingPast && <p>Loading past reservations...</p>}
-      {!loadingPast && pastReservations.length === 0 && (
-        <p>No past reservations found.</p>
+      {!user && (
+        <p className="text-muted">
+          Please login to see your past reservations.
+        </p>
       )}
 
       {pastReservations.map((res) => (
@@ -226,21 +222,14 @@ const Reserve = () => {
             <span className={`status ${res.status.toLowerCase()}`}>
               {res.status}
             </span>
-
-            <p>📅 {res.date}</p>
-            <p>⏰ {res.startTime} - {res.endTime}</p>
-            <p>👥 {res.guests} Guests</p>
+            <p>
+              📅 {res.date} | ⏰ {res.startTime} - {res.endTime}
+            </p>
             <p>📍 Table {res.tableNo}</p>
-
-            {res.specialRequest && (
-              <>
-                <strong>Special Request:</strong>
-                <p>{res.specialRequest}</p>
-              </>
-            )}
           </div>
 
-          {(res.status === "CREATED" || res.status === "CONFIRMED") && (
+          {(res.status === "CREATED" ||
+            res.status === "CONFIRMED") && (
             <button
               className="cancel-btn"
               onClick={() => handleCancel(res.reservationId)}

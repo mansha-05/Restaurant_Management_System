@@ -26,5 +26,5 @@ public interface TableRepository extends JpaRepository<TableEntity, Long> {
     Optional<User> findAllById(Long id);
     
 	@Query("SELECT t FROM TableEntity t WHERE t.table_no = :tableNo")
-	Optional<TableEntity> findByTableNo(@Param("tableNo") int tableNo);
+	Optional<TableEntity> findByTableNo(@Param("table_no") int tableNo);
 }

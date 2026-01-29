@@ -3,6 +3,7 @@ package com.rms.service;
 import java.util.List;
 
 import com.rms.dtos.AvailabilityRequestDTO;
+import com.rms.dtos.ManagerReservationDTO;
 import com.rms.dtos.ReservationRequestDTO;
 import com.rms.dtos.ReservationResponseDTO;
 import com.rms.dtos.TableResponseDTO;
@@ -37,4 +38,6 @@ public interface ReservationService {
 	
 	//check if user has a reservation with entered table no
 	Long validateTableNumber(Long userId, int tableNo);
+
+	List<ManagerReservationDTO> getReservations(String status);
 }

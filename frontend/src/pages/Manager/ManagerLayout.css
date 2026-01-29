@@ -1,0 +1,29 @@
+.manager-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #fffaf5;
+}
+
+.manager-main-content {
+    flex: 1;
+    margin-left: 260px;
+    /* Width of the sidebar */
+    width: calc(100% - 260px);
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+    .manager-main-content {
+        margin-left: 88px;
+        width: calc(100% - 88px);
+    }
+}
+
+@media (max-width: 640px) {
+    .manager-main-content {
+        margin-left: 0;
+        margin-bottom: 64px;
+        /* Space for bottom nav */
+        width: 100%;
+    }
+}

@@ -34,7 +34,8 @@ public class TableReservation extends BaseEntity {
     private LocalDateTime reservationStart;
     @Column(name = "reservation_end")
     private LocalDateTime reservationEnd;
-
+//    @Column(name = "guests", nullable = false)  // <-- Added field
+//    private int guests;
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 
