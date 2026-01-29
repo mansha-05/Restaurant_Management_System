@@ -16,6 +16,13 @@ import AuthProvider from './providers/AuthProvider'
 import StaffManagement from './pages/Admin/StaffManagement/StaffManagement';
 import UserManagement from './pages/Admin/UserManagement/UserManagement'
 import CategoryManagement from './pages/Admin/CategoryManagement/CategoryManagement'
+import ManagerHome from './pages/Manager/ManagerHome/ManagerHome'
+import ManagerDashboard from './pages/Manager/ManagerDashboard/ManagerDashboard'
+import OrdersManagement from './pages/Manager/OrdersManagement/OrdersManagement'
+import ReservationsManagement from './pages/Manager/ReservationsManagement/ReservationsManagement'
+import MenuManagement from './pages/Manager/MenuManagement/MenuManagement'
+import TableManagement from './pages/Manager/TableManagement/TableManagement'
+import FeedbackManagement from './pages/Manager/FeedbackManagement/FeedbackManagement'
 
 function App() {
 
@@ -40,6 +47,15 @@ function App() {
           <Route path='/admin/staff' element={<StaffManagement/>}/>
           <Route path='/admin/users' element={<UserManagement/>}/>
           <Route path='/admin/categories' element={<CategoryManagement/>}/>
+        </Route>
+        <Route path='/manager' element={<ManagerHome/>}>
+          <Route path='/manager' element={<ManagerHome/>}/>
+          <Route path='/manager/dashboard' element={<ManagerDashboard/>}/>
+          <Route path='/manager/orders' element={<OrdersManagement/>}/>
+          <Route path='/manager/reservations' element={<ReservationsManagement/>}/>
+          <Route path='/manager/menu' element={<MenuManagement/>}/>
+          <Route path='/manager/table' element={<TableManagement/>}/>
+          <Route path='/manager/feedback' element={<FeedbackManagement/>}/>
         </Route>
         <Route path="/cart" element={<Cart />} />
         </Routes>

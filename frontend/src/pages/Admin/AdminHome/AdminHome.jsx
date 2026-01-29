@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../../components/SideBar/SideBar";
 import TopBar from "../../../components/TopBar/TopBar";
-import AdminDashboard from "../AdminDashboard/AdminDashboard";
 import "./AdminHome.css";
 
 function AdminHome() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div className="admin-layout-container">
-      <TopBar />
+      <TopBar onMenuClick={() => setSidebarOpen(true)} />
 
       <div className="admin-body">
-        <Sidebar />
+        <Sidebar
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+        />
 
         <div className="admin-content">
           <Outlet />

@@ -5,6 +5,10 @@
   padding: 20px;
   border-right: 1px solid #eee;
   position: fixed;
+  top: 70px;
+  left: 0;
+  transition: transform 0.3s ease;
+  z-index: 1000;
 }
 
 /* HEADER */
@@ -26,15 +30,8 @@
 .sidebar-header h2 {
   font-size: 20px;
   font-weight: 600;
-  color:#ff4500;
+  color: #ff4500;
 }
-
-
-/* .sidebar .logo {
-  font-size: 20px;
-  margin-bottom: 40px;
-  color: #d35400;
-} */
 
 .sidebar ul {
   list-style: none;
@@ -54,4 +51,28 @@
   color: #fff;
 }
 
+/* ===== MOBILE ===== */
 
+@media (max-width: 900px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* Overlay */
+
+.sidebar-overlay {
+  display: none;
+}
+
+.sidebar-overlay.show {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 900;
+}

@@ -40,7 +40,43 @@
 
 /* RIGHT SIDE */
 .topbar-right {
-  font-size: 22px;
-  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+/* Logout button */
+.logout-btn {
+  background: #ff5400;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.logout-btn:hover {
+  background: #e64a09;
+}
+
+/* Hamburger menu button */
+.menu-btn {
+  display: none;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .menu-btn {
+    display: block;
+  }
+
+  .title-topbar {
+    font-size: 16px;
+  }
 }
