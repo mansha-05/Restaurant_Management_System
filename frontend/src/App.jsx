@@ -26,12 +26,12 @@ import FeedbackManagement from './pages/Manager/FeedbackManagement/FeedbackManag
 import Feedback from './pages/Feedback/Feedback'
 
 function App() {
-
   return (
     <div>
-      <AuthProvider>
+    <AuthProvider>
       <Routes>
-  <Route path="/" element={<Navigate to="/home" replace />} />
+        {/* Default Redirect */}
+        <Route path="/" element={<Navigate to="/home" replace />} />
 
     <Route path="/home" element={<Home />}>
       <Route index element={<HomeContents/>} />
@@ -57,15 +57,15 @@ function App() {
           <Route path='/manager/orders' element={<OrdersManagement/>}/>
           <Route path='/manager/reservations' element={<ReservationsManagement/>}/>
           <Route path='/manager/menu' element={<MenuManagement/>}/>
-          <Route path='/manager/table' element={<TableManagement/>}/>
+          <Route path='/manager/tables' element={<TableManagement/>}/>
           <Route path='/manager/feedback' element={<FeedbackManagement/>}/>
         </Route>
         
         </Routes>
         </AuthProvider>
       <ToastContainer/>
-    </div>
+      </div>
   )
 }
 
-export default App
+export default App;

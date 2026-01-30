@@ -3,22 +3,15 @@ package com.rms.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rms.dtos.AvailabilityRequestDTO;
-import com.rms.dtos.ReservationRequestDTO;
-import com.rms.dtos.ReservationResponseDTO;
-import com.rms.dtos.TableResponseDTO;
-import com.rms.entities.ReservationStatus;
-import com.rms.entities.TableEntity;
-import com.rms.entities.TableReservation;
-import com.rms.entities.TableStatus;
-import com.rms.entities.User;
-import com.rms.repository.ReservationRepository;
-import com.rms.repository.TableRepository;
-import com.rms.repository.UserRepository;
+import com.rms.dtos.*;
+import com.rms.entities.*;
+import com.rms.repository.*;
 
 @Service
 @Transactional
@@ -26,87 +19,164 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     private TableRepository tableRepo;
+    
     @Autowired
     private ReservationRepository reservationRepo;
+    
     @Autowired
     private UserRepository userRepo;
+    
+    @Autowired
+    private ModelMapper modelMapper;
 
+    @Override
     public List<TableResponseDTO> searchAvailableTables(AvailabilityRequestDTO request) {
-        // Map UI Date/Time to LocalDateTime
         LocalDateTime start = LocalDateTime.of(request.getDate(), request.getStartTime());
         LocalDateTime end = LocalDateTime.of(request.getDate(), request.getEndTime());
         int guest = request.getGuests();
-        // Call repository logic
-        // List<TableEntity> tables = tableRepo.findAvailableTables(start, end,
-        // request.getGuests());
+        
         List<TableEntity> tables = tableRepo.findAvailableTables(start, end, guest);
 
-        // Convert to DTOs for UI display
         return tables.stream().map(table -> {
             TableResponseDTO dto = new TableResponseDTO();
             dto.setTableId(table.getId());
-            dto.setTableNo(table.getTable_no());
+            dto.setTable_no(table.getTable_no());
             dto.setCapacity(table.getCapacity());
-            dto.setReservationPrice(table.getReservationPrice());
+           // dto.setReservationPrice(table.getReservationPrice());
             return dto;
         }).collect(Collectors.toList());
     }
 
+    @Override
     public String createReservation(ReservationRequestDTO request) {
-        // 1. Fetch User
         User user = userRepo.findById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // 2. Fetch Table
         TableEntity table = tableRepo.findById(request.getTableId())
                 .orElseThrow(() -> new RuntimeException("Table not found"));
 
-        // 3. Re-Check Availability (Double Verification)
         LocalDateTime start = LocalDateTime.of(request.getDate(), request.getStartTime());
         LocalDateTime end = LocalDateTime.of(request.getDate(), request.getEndTime());
 
-        List<TableEntity> availableTables = tableRepo.findAvailableTables(start, end, 0); // guests=0 to ignore capacity
-                                                                                          // check here
+        List<TableEntity> availableTables = tableRepo.findAvailableTables(start, end, 0);
 
         boolean isAvailable = availableTables.stream()
                 .anyMatch(t -> t.getId().equals(table.getId()));
 
         if (!isAvailable) {
-            throw new RuntimeException("Selected table is no longer available for the chosen time.");
+            throw new RuntimeException("Selected table is no longer available.");
         }
 
-        // 4. Create Reservation
         TableReservation reservation = new TableReservation();
         reservation.setUser(user);
         reservation.setTable(table);
-        reservation.setReservationDate(start); // Using start time as date reference
         reservation.setReservationStart(start);
         reservation.setReservationEnd(end);
         reservation.setStatus(ReservationStatus.CONFIRMED);
 
         reservationRepo.save(reservation);
-
         return "Reservation confirmed for Table " + table.getTable_no();
     }
 
+    @Override
     public String updateReservationStatus(Long reservationId, ReservationStatus newStatus) {
-        // 1. Fetch Reservation
         TableReservation reservation = reservationRepo.findById(reservationId)
-                .orElseThrow(() -> new RuntimeException("Reservation not found with ID: " + reservationId));
+                .orElseThrow(() -> new RuntimeException("Reservation not found ID: " + reservationId));
 
-        // 2. Validate status transition (optional business logic)
-        ReservationStatus currentStatus = reservation.getStatus();
-
-        // Example: Cannot cancel an already expired reservation
-        if (currentStatus == ReservationStatus.EXPIRED && newStatus == ReservationStatus.CANCELLED) {
+        if (reservation.getStatus() == ReservationStatus.EXPIRED && newStatus == ReservationStatus.CANCELLED) {
             throw new RuntimeException("Cannot cancel an expired reservation");
         }
-        // 3. Update status
+
         reservation.setStatus(newStatus);
         reservationRepo.save(reservation);
-
-        return "Reservation status updated to " + newStatus + " for Table " + reservation.getTable().getTable_no();
+        return "Status updated to " + newStatus;
     }
+
+    // Manager View: Get reservations filtered by status
+    @Override
+    public List<ManagerReservationDTO> getReservations(String status) {
+        List<TableReservation> reservations;
+
+        if (status != null && !status.isEmpty()) {
+            try {
+                reservations = reservationRepo.findByStatus(ReservationStatus.valueOf(status.toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                reservations = reservationRepo.findAll();
+            }
+        } else {
+            reservations = reservationRepo.findAll();
+        }
+
+        return reservations.stream()
+                .map(this::convertToManagerDTO)
+                .collect(Collectors.toList());
+    }
+
+    // Helper: Convert Entity to ManagerReservationDTO
+    private ManagerReservationDTO convertToManagerDTO(TableReservation res) {
+        ManagerReservationDTO dto = new ManagerReservationDTO();
+        
+        // ID mapping (Assuming you want to show it in UI)
+        dto.setReservationId(res.getId());
+        dto.setStatus(res.getStatus());
+
+        // Mapping User Details
+        if (res.getUser() != null) {
+            dto.setCustomerName(res.getUser().getName());
+            dto.setEmail(res.getUser().getEmail());
+            dto.setPhoneNumber(res.getUser().getPhone());
+        }
+
+        // Mapping Date and Time
+        if (res.getReservationStart() != null) {
+            dto.setReservationDate(res.getReservationStart().toLocalDate());
+            dto.setReservationTime(res.getReservationStart().toLocalTime());
+        }
+
+        // Mapping Table Details
+        if (res.getTable() != null) {
+            dto.setTableNumber(res.getTable().getTable_no());
+            dto.setGuests(res.getTable().getCapacity()); // Using capacity as guest count
+        }
+
+        return dto;
+    }
+
+    @Override
+    public List<ReservationResponseDTO> getUserReservations(Long userId) {
+        return reservationRepo.findByUserIdOrderByReservationStartDesc(userId)
+                .stream().map(this::convertToResponseDTO).collect(Collectors.toList());
+    }
+
+    private ReservationResponseDTO convertToResponseDTO(TableReservation res) {
+        ReservationResponseDTO dto = new ReservationResponseDTO();
+        dto.setReservationId(res.getId());
+        dto.setStatus(res.getStatus());
+        dto.setDate(res.getReservationStart().toLocalDate());
+        dto.setStartTime(res.getReservationStart().toLocalTime());
+        dto.setEndTime(res.getReservationEnd().toLocalTime());
+        dto.setTableNo(res.getTable().getTable_no());
+        dto.setUserName(res.getUser().getName());
+        return dto;
+    }
+
+    @Override
+    public boolean hasActiveReservation(Long userId) {
+        return reservationRepo.findActiveReservation(userId).isPresent();
+    }
+
+    @Override
+    public Long validateTableNumber(Long userId, int tableNo) {
+        TableReservation res = reservationRepo.findActiveReservation(userId)
+                .orElseThrow(() -> new RuntimeException("No active reservation"));
+
+        if (res.getTable().getTable_no() != tableNo) {
+            throw new RuntimeException("Invalid table number");
+        }
+        return res.getTable().getId();
+    }
+
+	@Override
 
     public String updateTableStatus(Long tableId, TableStatus newStatus) {
         // 1. Correct Repository and ID usage
@@ -128,16 +198,9 @@ public class ReservationServiceImpl implements ReservationService {
         return "Table status updated to " + newStatus + " for Table No: " + table.getTable_no();
     }
 
-    // Get all reservations for a user
-    public List<ReservationResponseDTO> getUserReservations(Long userId) {
-        List<TableReservation> reservations = reservationRepo.findByUserIdOrderByReservationStartDesc(userId);
-        return reservations.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
 
-    // Get past reservations for a user
-    public List<ReservationResponseDTO> getPastReservations(Long userId) {
+	@Override
+	public List<ReservationResponseDTO> getPastReservations(Long userId) {
         LocalDateTime now = LocalDateTime.now();
         List<TableReservation> reservations = reservationRepo.findPastReservationsByUserId(userId, now);
         return reservations.stream()
@@ -145,7 +208,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .collect(Collectors.toList());
     }
 
-    // Get upcoming reservations for a user
+	// Get upcoming reservations for a user
     public List<ReservationResponseDTO> getUpcomingReservations(Long userId) {
         LocalDateTime now = LocalDateTime.now();
         List<TableReservation> reservations = reservationRepo.findUpcomingReservationsByUserId(userId, now);
@@ -177,27 +240,5 @@ public class ReservationServiceImpl implements ReservationService {
         dto.setUserPhone(reservation.getUser().getPhone());
 
         return dto;
-    }
-    
-    //  Check reservation exists
-    @Override
-    public boolean hasActiveReservation(Long userId) {
-        return reservationRepo.findActiveReservation(userId).isPresent();
-    }
-
-    // Validate table number
-    @Override
-    public Long validateTableNumber(Long userId, int tableNo) {
-
-        TableReservation reservation = reservationRepo
-                .findActiveReservation(userId)
-                .orElseThrow(() ->
-                        new RuntimeException("No active reservation"));
-
-        if (reservation.getTable().getTable_no() != tableNo) {
-            throw new RuntimeException("Invalid table number");
-        }
-
-        return reservation.getTable().getId();
     }
 }

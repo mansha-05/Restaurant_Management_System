@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import com.rms.entities.ReservationStatus;
 import com.rms.entities.TableReservation;
 
 public interface ReservationRepository extends JpaRepository<TableReservation, Long> {
@@ -39,4 +41,9 @@ public interface ReservationRepository extends JpaRepository<TableReservation, L
 	AND r.reservationEnd > CURRENT_TIMESTAMP
 	""")
 	Optional<TableReservation> findActiveReservation(Long userId);
+
+	//List<TableReservation> findByStatus(ReservationStatus valueOf);
+
+	List<TableReservation> findByStatus(ReservationStatus reservationStatus);
+
 }

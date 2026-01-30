@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useTables } from "../../../hooks/useTables";
-import TableStats from "../../../components/table/TableStats";
-import TableCard from "./../../../components/table/TableCard";
-import EditTableModal from "../../../components/table/EditTableModal";
+import { useTables } from "../../hooks/useTables";
+import TableStats from "./TableStats";
+import TableCard from "./TableCard";
+import EditTableModal from "./EditTableModal";
 import { FiPlus } from "react-icons/fi";
 import "./TableManagement.css";
 

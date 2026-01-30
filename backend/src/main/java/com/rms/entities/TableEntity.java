@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "tables") // Named 'tables' as 'Table' is a reserved keyword in SQL
 @Getter
@@ -15,6 +17,7 @@ import java.util.List;
 @AttributeOverride(name="id",column=@Column(name="table_id"))
 public class TableEntity extends BaseEntity {
     @Column(nullable = false, unique = true)
+    @JsonProperty("table_no") // Maps JSON "tableNo" to Java "table_no"
     private int  table_no;
     @Column(nullable = false)
     private int capacity; 
