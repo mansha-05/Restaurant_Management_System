@@ -38,7 +38,7 @@ public class TableServiceImpl implements TableService {
             // Use the getter from DTO: setTableNo
             dto.setTable_no(entity.getTable_no());
             dto.setCapacity(entity.getCapacity());
-
+            dto.setReservationPrice(entity.getReservationPrice());
             // Fix: Convert Enum to String for the DTO
             if (entity.getStatus() != null) {
                 dto.setStatus(entity.getStatus().name());
@@ -56,7 +56,7 @@ public class TableServiceImpl implements TableService {
         // Lombok generates getTable_no() because your field name is table_no
         table.setTable_no(request.getTable_no());
         table.setCapacity(request.getCapacity());
-        // table.setReservationPrice(request.getReservationPrice());
+        table.setReservationPrice(request.getReservationPrice());
         // Fix Status Mapping
         if (request.getStatus() != null) {
             try {
@@ -83,7 +83,7 @@ public class TableServiceImpl implements TableService {
         // 2. Update the fields from the DTO
         table.setTable_no(request.getTable_no());
         table.setCapacity(request.getCapacity());
-
+        table.setReservationPrice(request.getReservationPrice());
         // 3. Update Status (Enum conversion)
         if (request.getStatus() != null) {
             try {

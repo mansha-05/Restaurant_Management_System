@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTables } from "../../../hooks/useTables";
 import TableStats from "../../../components/table/TableStats";
-import TableCard from "./../../../components/table/TableCard";
+import TableCard from "../../../components/table/TableCard";
 import EditTableModal from "../../../components/table/EditTableModal";
 import { FiPlus } from "react-icons/fi";
 import "./TableManagement.css";
@@ -31,6 +31,7 @@ const TableManagement = () => {
       id: table.tableId,
       number: table.table_no,
       capacity: table.capacity,
+      reservationPrice: table.reservationPrice, // <-- added here
       // location: table.location,
       status: table.status?.toLowerCase()
     });
@@ -42,6 +43,7 @@ const TableManagement = () => {
       await updateTable(editingTable.id, {
         table_no: formData.number,
         capacity: formData.capacity,
+        reservationPrice: formData.reservationPrice, // <-- send to backend
         status: (formData.status || "available").toUpperCase(),
         location: editingTable.location // Preserve existing location
       });
@@ -49,6 +51,7 @@ const TableManagement = () => {
       await addTable({
         table_no: formData.number,
         capacity: formData.capacity,
+        reservationPrice: formData.reservationPrice, // <-- send to backend
         // location: "General", // Default location
         status: "AVAILABLE" // Default status
       });
@@ -79,7 +82,7 @@ const TableManagement = () => {
                 key={table.tableId}
                 table={table}
                 onEdit={() => handleEditClick(table)}
-                onDelete={() => deleteTable(table.tableId)}
+                //onDelete={() => deleteTable(table.tableId)}
               />
             ))}
           </div>

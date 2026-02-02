@@ -31,7 +31,7 @@ const Checkout = () => {
         {
       headers: {
         Authorization: `Bearer ${token}`,
-      },
+      }
     }
       )
       .then((res) => {

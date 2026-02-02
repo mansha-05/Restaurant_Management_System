@@ -15,7 +15,11 @@ const TableManagement = () => {
 
   // Group tables by status
   const groupedTables = tables.reduce((acc, table) => {
-    const statusLabel = table.status?.toLowerCase() === 'out_of_service' ? 'Out of Service' : 'Available';
+    const statusLabel =
+      table.status?.toLowerCase() === 'out_of_service'
+        ? 'Out of Service'
+        : 'Available';
+
     if (!acc[statusLabel]) acc[statusLabel] = [];
     acc[statusLabel].push(table);
     return acc;
@@ -31,7 +35,7 @@ const TableManagement = () => {
       id: table.tableId,
       number: table.table_no,
       capacity: table.capacity,
-      // location: table.location,
+      reservationPrice: table.reservationPrice,
       status: table.status?.toLowerCase()
     });
     setIsModalOpen(true);
@@ -42,15 +46,16 @@ const TableManagement = () => {
       await updateTable(editingTable.id, {
         table_no: formData.number,
         capacity: formData.capacity,
+        reservationPrice: formData.reservationPrice,
         status: (formData.status || "available").toUpperCase(),
-        location: editingTable.location // Preserve existing location
+        location: editingTable.location
       });
     } else {
       await addTable({
         table_no: formData.number,
         capacity: formData.capacity,
-        // location: "General", // Default location
-        status: "AVAILABLE" // Default status
+        reservationPrice: formData.reservationPrice,
+        status: "AVAILABLE"
       });
     }
   };
@@ -72,7 +77,10 @@ const TableManagement = () => {
 
       {Object.entries(groupedTables).map(([location, locationTables]) => (
         <section key={location} className="table-section">
-          <h2 className="section-title">{location} - {locationTables.length} tables</h2>
+          <h2 className="section-title">
+            {location} - {locationTables.length} tables
+          </h2>
+
           <div className="table-grid">
             {locationTables.map((table) => (
               <TableCard

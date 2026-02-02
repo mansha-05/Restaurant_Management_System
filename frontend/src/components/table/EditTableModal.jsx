@@ -5,14 +5,24 @@ const EditTableModal = ({ isOpen, onClose, onSubmit, initialData }) => {
   const [formData, setFormData] = useState({
     number: '',
     capacity: '',
+    reservationPrice: '',
     status: 'available'
   });
 
   useEffect(() => {
     if (initialData) {
-      setFormData(initialData);
+      // Make sure reservationPrice is always defined
+      setFormData({
+        ...initialData,
+        reservationPrice: initialData.reservationPrice ?? ''
+      });
     } else {
-      setFormData({ number: '', capacity: '',status: 'available' });
+      setFormData({
+        number: '',
+        capacity: '',
+        reservationPrice: '',
+        status: 'available'
+      });
     }
   }, [initialData, isOpen]);
 
@@ -36,6 +46,7 @@ const EditTableModal = ({ isOpen, onClose, onSubmit, initialData }) => {
           <h2>{initialData ? 'Edit Table' : 'Add New Table'}</h2>
           <button className="close-btn" onClick={onClose}>&times;</button>
         </div>
+
         <p className="modal-subtitle">
           {initialData ? 'Update the table details' : 'Enter the details for the new table'}
         </p>
@@ -53,6 +64,7 @@ const EditTableModal = ({ isOpen, onClose, onSubmit, initialData }) => {
                 required
               />
             </div>
+
             <div className="form-group">
               <label>Capacity</label>
               <input
@@ -64,6 +76,18 @@ const EditTableModal = ({ isOpen, onClose, onSubmit, initialData }) => {
                 required
               />
             </div>
+          </div>
+
+          <div className="form-group">
+            <label>Reservation Price</label>
+            <input
+              type="number"
+              name="reservationPrice"
+              placeholder="Enter reservation price"
+              value={formData.reservationPrice !== undefined ? formData.reservationPrice : ''}
+              onChange={handleChange}
+              required
+            />
           </div>
 
           {initialData && (
