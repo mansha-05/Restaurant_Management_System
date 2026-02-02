@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../pages/Admin/StaffManagement/StaffManagement.css";
 import { toast } from "react-toastify";
-
+import { config } from "../../services/config";
 
 const token = localStorage.getItem("token")
 const StaffModal = ({ editingStaff, onSave, closeModal }) => {

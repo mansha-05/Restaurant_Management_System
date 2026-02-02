@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import StaffModal from "../../../components/StaffModal/StaffModal";
 import "./StaffManagement.css";
+import { config } from "../../../services/config";
 
 // Syncfusion imports
 import {

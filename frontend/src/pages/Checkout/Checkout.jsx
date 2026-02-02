@@ -7,7 +7,6 @@ import BillSummary from "../../components/BillSummary/BillSummary";
 import axios from "axios";
 import { config } from "../../services/config";
 
-const token = localStorage.getItem("token")
 const Checkout = () => {
   const cart = useSelector((state) => state.cart);
   const { user } = useAuth();
@@ -21,12 +20,11 @@ const Checkout = () => {
     if (cart.totalQuantity === 0) return;
 
     if (!user) {
-      navigate("/home/login", {
-        state: { redirectTo: "/home/checkout" }
-      });
+      localStorage.setItem("redirectTo", "/home/checkout");
+      navigate("/home/login");
       return;
     }
-
+    const token = localStorage.getItem("token")
     // CHECK RESERVATION FIRST
     axios
       .get(`${config.server}/reservations/check/user/${user.userId}`,

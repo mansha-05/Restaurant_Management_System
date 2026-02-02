@@ -28,6 +28,7 @@ import Checkout from './pages/Checkout/Checkout'
 //import OrderSuccess from './pages/OrderSuccess/OrderSuccess'
 import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
 import Profile from './pages/Profile/Profile'
+import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
 
 function App() {
   return (
@@ -44,24 +45,24 @@ function App() {
       <Route path="reserve" element={<Reserve />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
-      <Route path="feedback" element={<Feedback />} />
+      <Route path="feedback" element={<ProtectedRoutes><Feedback /></ProtectedRoutes>} />
       <Route path="cart" element={<Cart />} />
-      <Route path="checkout" element={<Checkout />} />
-      <Route path="payment-success" element={<PaymentSuccess />} />
+      <Route path="checkout" element={<ProtectedRoutes><Checkout /></ProtectedRoutes>} />
+      <Route path="payment-success" element={<ProtectedRoutes><PaymentSuccess /></ProtectedRoutes>} />
       <Route path="order-success" element={<h2>Order Placed Successfully 🎉</h2>} />
-      <Route path="profile" element={<Profile />} />
+      <Route path="profile" element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
     </Route>
       <Route path="/payment-success" element={<PaymentSuccess />} />
   
-        <Route path='/admin' element={<AdminHome/>}>
+        <Route path='/admin' element={<ProtectedRoutes allowedRoles={["ADMIN"]}><AdminHome /></ProtectedRoutes>}>
           <Route path='/admin' element={<AdminHome/>}/>
           <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
           <Route path='/admin/staff' element={<StaffManagement/>}/>
           <Route path='/admin/users' element={<UserManagement/>}/>
           <Route path='/admin/categories' element={<CategoryManagement/>}/>
         </Route>
-        <Route path='/manager' element={<ManagerHome/>}>
-          <Route path='/manager' element={<ManagerHome/>}/>
+        <Route path='/manager' element={<ProtectedRoutes allowedRoles={["MANAGER"]}><ManagerHome /></ProtectedRoutes>}>
+          <Route path='/manager' element={<OrdersManagement/>}/>
           <Route path='/manager/orders' element={<OrdersManagement/>}/>
           <Route path='/manager/reservations' element={<ReservationsManagement/>}/>
           <Route path='/manager/menu' element={<MenuManagement/>}/>

@@ -7,6 +7,7 @@
 
 .orders-page h2 {
   margin-bottom: 25px;
+  text-align: center;
 }
 
 /* Grid Layout */
@@ -23,6 +24,8 @@
   padding: 22px;
   box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .order-card:hover {
@@ -30,6 +33,11 @@
 }
 
 /* Header */
+.order-top {
+  display: flex;
+  flex-direction: column;
+}
+
 .order-top h3 {
   margin: 0;
   color: #7a2d00;
@@ -52,6 +60,11 @@
   justify-content: space-between;
   margin-top: 8px;
   font-size: 15px;
+  gap: 10px;
+}
+
+.item-row span {
+  word-break: break-word;
 }
 
 /* Divider */
@@ -66,6 +79,7 @@ hr {
   display: flex;
   justify-content: space-between;
   font-size: 16px;
+  margin-top: 5px;
 }
 
 .total-price {
@@ -84,6 +98,7 @@ hr {
 .blur-container {
   position: relative;
   height: 80vh;
+  padding: 15px;
 }
 
 .blur-overlay {
@@ -101,6 +116,7 @@ hr {
   background: white;
   padding: 30px;
   width: 300px;
+  max-width: 90%;
   border-radius: 12px;
   text-align: center;
 }
@@ -113,4 +129,59 @@ hr {
   color: white;
   border-radius: 8px;
   cursor: pointer;
+}
+
+/* =========================
+   TABLET RESPONSIVE
+   ========================= */
+@media (max-width: 992px) {
+  .orders-page {
+    padding: 20px;
+  }
+
+  .orders-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+
+  .order-card {
+    padding: 18px;
+  }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+   ========================= */
+@media (max-width: 576px) {
+  .orders-page {
+    padding: 15px;
+  }
+
+  .orders-page h2 {
+    font-size: 22px;
+  }
+
+  .orders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-card {
+    padding: 16px;
+  }
+
+  .order-top h3 {
+    font-size: 16px;
+  }
+
+  .item-row {
+    font-size: 14px;
+  }
+
+  .total-row {
+    font-size: 15px;
+  }
+
+  .login-popup {
+    width: 100%;
+    padding: 20px;
+  }
 }

@@ -3,15 +3,9 @@ import { config } from './config'
 
 export async function getMenu() {
   try {
-    const token = localStorage.getItem("token")
-
     const url = `${config.server}/menu`
 
-    const response = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    const response = await axios.get(url)
 
     return response.data
   } catch (ex) {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./FeedbackManagement.css";
+import { config } from "../../../services/config";
 
 // Syncfusion imports
 import {

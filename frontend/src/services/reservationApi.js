@@ -10,9 +10,13 @@ const API = axios.create({
   },
 });
 
+const API_WITHOUT = axios.create({
+  baseURL: `${config.server}/reservations`
+});
+
 // Fetch available tables
 export const fetchAvailableTables = (data) =>
-  API.post("/available-tables", data);
+  API_WITHOUT.post("/available-tables", data);
 
 // Reserve a table
 export const reserveTable = (data) =>

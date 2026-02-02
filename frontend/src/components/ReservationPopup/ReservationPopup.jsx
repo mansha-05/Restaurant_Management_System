@@ -29,8 +29,7 @@ const ReservationPopup = ({ userId, onTableValidated }) => {
     try {
       const res = await axios.get(
         `${config.server}/reservations/validate`,
-        { params: { userId, tableNo }},
-        {
+        { params: { userId, tableNo },
           headers: {
             Authorization: `Bearer ${token}`,
           },

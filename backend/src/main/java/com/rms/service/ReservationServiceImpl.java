@@ -42,7 +42,7 @@ public class ReservationServiceImpl implements ReservationService {
             dto.setTableId(table.getId());
             dto.setTable_no(table.getTable_no());
             dto.setCapacity(table.getCapacity());
-           // dto.setReservationPrice(table.getReservationPrice());
+            dto.setReservationPrice(table.getReservationPrice());
             return dto;
         }).collect(Collectors.toList());
     }

@@ -40,7 +40,14 @@ export async function fetchAllUsers() {
 
 export const fetchAdminDashboard = async () => {
   try {
-    const res = await axios.get(`${config.server}/admin/dashboard/summary`);
+    const token = localStorage.getItem("token");
+    const res = await axios.get(`${config.server}/admin/dashboard/summary`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+
+    );
     return res.data;
   } catch (error) {
     console.error("Dashboard fetch failed:", error);

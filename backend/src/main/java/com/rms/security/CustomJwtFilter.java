@@ -32,7 +32,12 @@ public class CustomJwtFilter extends OncePerRequestFilter {
 		if (path.equals("/users/signin") ||
 		        path.equals("/users/signup") ||
 		        path.startsWith("/swagger-ui") ||
-		        path.startsWith("/v3/api-docs")) {
+		        path.startsWith("/v3/api-docs") ||
+		        path.equals("/menu/popular") ||
+		        path.equals("/menu") ||
+		        path.equals("/category") ||
+		        path.equals("/reservations/available-tables")
+				) {
 
 		        filterChain.doFilter(request, response);
 		        return;

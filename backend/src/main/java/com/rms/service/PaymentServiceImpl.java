@@ -36,24 +36,24 @@ public class PaymentServiceImpl implements PaymentService {
 	private final PaymentRepository paymentRepo;
 	@Override
 	public void handleSuccessfulPayment(PaymentConfirmReq req) {
-		System.out.println("ReservationId = " + req.getReservationId());
-		System.out.println("UserId = " + req.getUserId());
 
-	    // 1. Fetch reservation
-		TableReservation reservation =
-			    reservationRepo.findReservationForPayment(
-			        req.getReservationId(),
-			        req.getUserId()
-			    ).orElseThrow(() -> new RuntimeException("Reservation not found"));
+	    TableReservation reservation =
+	            reservationRepo.findReservationForPayment(
+	                    req.getReservationId(),
+	                    req.getUserId()
+	            ).orElseThrow(() -> new RuntimeException("Reservation not found"));
 
-			LocalDateTime now = LocalDateTime.now();
+	    LocalDateTime now = LocalDateTime.now();
+	    if (now.isBefore(reservation.getReservationStart()) ||
+	        now.isAfter(reservation.getReservationEnd())) {
+	        throw new RuntimeException("Reservation window expired");
+	    }
 
-			if (now.isBefore(reservation.getReservationStart()) ||
-			    now.isAfter(reservation.getReservationEnd())) {
-			    throw new RuntimeException("Reservation window expired");
-			}
+	    // IMPORTANT CHECK (THIS IS THE CORE LOGIC)
+	    boolean isFirstOrder =
+	            !orderRepo.existsByReservation_Id(reservation.getId());
 
-	    // 2. Create Order
+	    // 1️⃣ Create Order
 	    Orders order = new Orders();
 	    order.setReservation(reservation);
 	    order.setOrderDate(LocalDate.now());
@@ -61,8 +61,8 @@ public class PaymentServiceImpl implements PaymentService {
 
 	    Orders savedOrder = orderRepo.save(order);
 
-	    // 3. Create OrderDetails
-	    double total = 0;
+	    // 2️⃣ Create OrderDetails
+	    double itemsTotal = 0;
 
 	    for (CartItemReq item : req.getItems()) {
 	        Menu menu = menuRepo.findById(item.getMenuId())
@@ -74,29 +74,31 @@ public class PaymentServiceImpl implements PaymentService {
 	        od.setQuantity(item.getQuantity());
 	        od.setSubtotal(menu.getPrice() * item.getQuantity());
 
-	        total += od.getSubtotal();
+	        itemsTotal += od.getSubtotal();
 	        orderDetailsRepo.save(od);
 	    }
 
-	    savedOrder.setTotalAmount(total);
-	    
-	    
-	    if (paymentRepo.existsByReservationId(reservation.getId())) {
-	        throw new RuntimeException("Payment already completed");
+	    // 3️⃣ Add reservation price ONLY for first order
+	    double finalAmount = itemsTotal;
+
+	    if (isFirstOrder) {
+	        finalAmount += reservation.getTable().getReservationPrice();
 	    }
 
-	    // 4. Save Payment
+	    savedOrder.setTotalAmount(finalAmount);
+	    orderRepo.save(savedOrder);
+
+	    // 4️⃣ Save Payment (NO DUPLICATE BLOCKING)
 	    Payment payment = new Payment();
 	    payment.setOrder(savedOrder);
 	    payment.setReservation(reservation);
-	    payment.setAmount(req.getFinalPayable());
-	    payment.setPaymentType(PaymentType.FINAL);
+	    payment.setAmount(finalAmount);
 	    payment.setPaymentMethod(PaymentMethod.CARD);
+	    payment.setPaymentType(PaymentType.FINAL);
 	    payment.setPaymentDate(LocalDate.now());
 
 	    paymentRepo.save(payment);
-	    
-	    
 	}
+
 
 }

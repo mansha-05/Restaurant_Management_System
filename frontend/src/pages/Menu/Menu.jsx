@@ -42,9 +42,9 @@ const Menu = () => {
     fetchData();
   }, []);
 
-        allDishes.forEach(dish => {
-  console.log("ID:", dish.id, dish.name);
-});
+//         allDishes.forEach(dish => {
+//   // console.log("ID:", dish.id, dish.name);
+// });
 
 
   const filteredAndSortedDishes = allDishes

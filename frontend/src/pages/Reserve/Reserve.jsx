@@ -88,9 +88,8 @@ const Reserve = () => {
 
     if (!user) {
       toast.warning("Please login to confirm your reservation");
-      navigate("/home/login", {
-        state: { redirectTo: "/home/reserve" },
-      });
+      localStorage.setItem("redirectTo", "/home/reserve");
+      navigate("/home/login");
       return;
     }
 
@@ -189,7 +188,7 @@ const Reserve = () => {
             }`}
             onClick={() => setSelectedTable(table)}
           >
-            <h4>Table {table.tableNo}</h4>
+            <h4>Table {table.table_no}</h4>
             <p>👥 Capacity: {table.capacity}</p>
             <p className="price">₹{table.reservationPrice}</p>
           </div>

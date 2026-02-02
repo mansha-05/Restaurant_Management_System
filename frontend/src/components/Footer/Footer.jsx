@@ -21,7 +21,7 @@ export default function Footer() {
         <div className="footer-contact">
           <h4>Contact</h4>
           <p>📍 Pune, India</p>
-          <p><i class="fa-brands fa-github"></i><a href="https://github.com/mansha-05/Restaurant_Management_System">  Github Link</a> </p>
+          <p><i className="fa-brands fa-github"></i><a href="https://github.com/mansha-05/Restaurant_Management_System">  Github Link</a> </p>
         </div>
 
       </div>

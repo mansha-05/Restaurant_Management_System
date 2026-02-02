@@ -4,18 +4,11 @@ import { config } from '../../services/config';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const token = localStorage.getItem("token")
 const PopularDishes = () => {
 //   const [dishes, setDishes] = useState([]);
      const [popularDishes, setPopularDishes] = useState([]);
   useEffect(() => {
-    axios.get(`${config.server}/menu/popular`,
-      {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-        )
+    axios.get(`${config.server}/menu/popular`)
       .then(res => {
         // Map backend response to match DishCard
         const mappedDishes = res.data.map(d => ({

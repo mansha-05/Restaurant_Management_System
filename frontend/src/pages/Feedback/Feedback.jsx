@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Feedback.css";
 import { useAuth } from "../../providers/AuthProvider";
+import { config } from "../../services/config";
 
 const token = localStorage.getItem("token")
 const Feedback = () => {

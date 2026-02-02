@@ -14,7 +14,10 @@ function Login() {
   const { setUser } = useAuth();
   const navigate = useNavigate();
   const location=useLocation();
-  const redirectTo=location.state?.redirectTo||"/home";
+  const redirectTo =
+      location.state?.redirectTo ||
+      localStorage.getItem("redirectTo") ||
+      "/home";
   // const passwordRegex = /((?=.\d)(?=.[a-z]).{5,20})/;
 
   const onLogin = async () => {
@@ -75,8 +78,11 @@ function Login() {
 
       const role = response.data.role
       if(role == "ADMIN") navigate("/admin/dashboard");
-      else if(role == "MANAGER") navigate("/manager/dashboard");
-      else navigate(redirectTo);
+      else if(role == "MANAGER") navigate("/manager");
+      else {
+        navigate(redirectTo);
+        localStorage.removeItem("redirectTo");
+      }
       
     } else {
       toast.error(response["error"]);
