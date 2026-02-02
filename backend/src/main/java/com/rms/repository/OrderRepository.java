@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.rms.dtos.NewOrderRowDto;
 import com.rms.dtos.OrderRowDto;
 import com.rms.entities.OrderDetails;
 import com.rms.entities.Orders;
@@ -46,10 +47,45 @@ public interface OrderRepository extends JpaRepository<Orders, Long> {
 			WHERE u.id = :userId
 			""")
 			List<OrderRowDto> findOrderRowsByUserId(Long userId);
-
-
-
-
-
+	
+		@Query("""
+				SELECT new com.rms.dtos.NewOrderRowDto(
+				    o.id,
+				    u.name,
+				    CONCAT(od.quantity, 'x ', m.item_name),
+				    t.table_no,
+				    o.totalAmount,
+				    o.orderDate,
+				    o.orderTime
+				)
+				FROM OrderDetails od
+				JOIN od.order o
+				JOIN o.reservation r
+				JOIN r.user u
+				JOIN r.table t
+				JOIN od.menu m
+				""")
+				List<NewOrderRowDto> fetchRawOrderRows();
+	
+		
+			@Query("""
+					SELECT new com.rms.dtos.NewOrderRowDto(
+					    o.id,
+					    u.name,
+					    CONCAT(od.quantity, 'x ', m.item_name),
+					    t.table_no,
+					    o.totalAmount,
+					    o.orderDate,
+					    o.orderTime
+					)
+					FROM OrderDetails od
+					JOIN od.order o
+					JOIN o.reservation r
+					JOIN r.user u
+					JOIN r.table t
+					JOIN od.menu m
+					WHERE LOWER(u.name) LIKE LOWER(CONCAT('%', :name, '%'))
+					""")
+				List<NewOrderRowDto> searchOrdersByCustomer(@Param("name") String name);
 
 }

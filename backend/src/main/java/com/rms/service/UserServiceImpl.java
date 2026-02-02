@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rms.dtos.ApiResponse;
+import com.rms.dtos.AuthResp;
 import com.rms.dtos.RegisterRequestDto;
 import com.rms.dtos.RegisterResponseDto;
+
+import com.rms.dtos.UserUpdateDto;
 import com.rms.entities.User;
 import com.rms.entities.UserRole;
 import com.rms.repository.UserRepository;
@@ -55,4 +58,37 @@ public class UserServiceImpl implements UserService
 		}
 	}
 
+	@Override
+	public User updateProfile(Long id, UserUpdateDto dto) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+		user.setName(dto.getName());
+	    user.setEmail(dto.getEmail());
+	    user.setPhone(dto.getPhone());
+	    user.setCity(dto.getCity());
+	    return userRepository.save(user);
+	}
+
+	@Override
+	public UserUpdateDto getUserById(Long id) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findById(id).orElseThrow();
+		return modelMapper.map(user, UserUpdateDto.class);
+	}
+
+	@Override
+	public AuthResp getCurrentUser(Long userId) {
+	    User user = userRepository.findById(userId)
+	        .orElseThrow(() -> new RuntimeException("User not found"));
+
+	    AuthResp.Data data = new AuthResp.Data(
+	        user.getId(),
+	        user.getEmail(),
+	        null,
+	        user.getRole().name()
+	    );
+
+	    return new AuthResp("success", "User restored", data);
+	}
 }

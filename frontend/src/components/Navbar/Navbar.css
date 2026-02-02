@@ -168,3 +168,80 @@
     background: #f8f8f8;
   }
 }
+
+/* ========================= */
+/* GLOBAL SAFETY FIXES */
+/* ========================= */
+
+.navbar {
+  position: relative;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+/* prevent overflow on small screens */
+.nav-left,
+.nav-right {
+  min-width: 0;
+}
+
+/* ========================= */
+/* MOBILE IMPROVEMENTS */
+/* ========================= */
+
+@media (max-width: 780px) {
+
+  .navbar {
+    padding: 12px 18px;
+  }
+
+  .brand {
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  .nav-right {
+    gap: 14px;
+  }
+
+  /* prevent cart + signin from pushing layout */
+  .nav-right a,
+  .signin-btn {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  /* ensure mobile menu stays inside screen */
+  .mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  }
+}
+
+/* ========================= */
+/* SMALL MOBILE */
+/* ========================= */
+
+@media (max-width: 480px) {
+
+  .navbar {
+    padding: 10px 12px;
+  }
+
+  .logo-box1 {
+    width: 34px;
+    height: 34px;
+  }
+
+  .brand {
+    font-size: 14px;
+  }
+
+  .hamburger {
+    font-size: 22px;
+  }
+}

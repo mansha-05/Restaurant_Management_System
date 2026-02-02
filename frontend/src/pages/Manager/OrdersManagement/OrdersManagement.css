@@ -1,0 +1,146 @@
+:root {
+  --primary-color: #d35400;
+  --secondary-color: #ff4d00;
+  --bg-color: #fffaf5;
+  --card-bg: #ffffff;
+  --text-main: #333333;
+  --text-light: #777777;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* PAGE CONTAINER */
+.orders-container {
+  padding: 32px;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* HEADER */
+.orders-container h1 {
+  font-size: 32px;
+  color: #7b2d1f;
+  margin-bottom: 24px;
+  font-weight: 700;
+  text-align: left;
+}
+
+/* SEARCH BAR */
+.search-container {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #f8f9fa;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-container input:focus {
+  border-color: var(--secondary-color);
+}
+
+/* TABLE CARD */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+/* TABLE HEADER */
+.orders-table th {
+  text-align: left;
+  background: #fdfdfd;
+  color: var(--text-light);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* TABLE BODY */
+.orders-table td {
+  padding: 18px 16px;
+  border-bottom: 1px solid #f8f8f8;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.orders-table tr:hover {
+  background-color: #fffcf9;
+}
+
+.orders-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* EMPTY STATE */
+.no-orders {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .orders-container {
+    padding: 20px;
+  }
+
+  .orders-container h1 {
+    font-size: 24px;
+  }
+
+  .search-container {
+    padding: 16px;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .orders-container {
+    padding: 12px;
+  }
+
+  .orders-container h1 {
+    font-size: 20px;
+  }
+
+  .search-container input {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+}

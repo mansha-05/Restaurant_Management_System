@@ -129,17 +129,17 @@ function Login() {
         </div>
         {showError("password")}
 
-        <div className="forgot-text">Forgot Password?</div>
+        {/* <div className="forgot-text">Forgot Password?</div> */}
 
         <button type="submit" onClick={onLogin} className="login-btn">
           Sign In
         </button>
 
-        <div className="separator">or</div>
+        {/* <div className="separator">or</div>
 
         <button className="google-btn">
           <i className="fa-brands fa-google"></i> Continue with Google
-        </button>
+        </button> */}
 
         <p className="signup-text">
           Don't have an account?{" "}
@@ -149,7 +149,7 @@ function Login() {
         </p>
       </div>
 
-      <footer>© 2025 Restaurant Management System. All rights reserved.</footer>
+      <footer>© 2026 Restaurant Management System. All rights reserved.</footer>
     </div>
   );
 }

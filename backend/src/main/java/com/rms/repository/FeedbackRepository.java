@@ -1,6 +1,8 @@
 package com.rms.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 import com.rms.entities.Feedback;
 
 import java.util.List;
@@ -13,4 +15,7 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     List<Feedback> findByOrderId(Long orderId);
 
     List<Feedback> findByUserNameContainingIgnoreCase(String userName);
+    
+    @Query("SELECT AVG(f.rating) FROM Feedback f")
+    Double getAverageRating();
 }

@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
+    "@syncfusion/ej2-react-charts": "^32.1.25",
+    "@syncfusion/ej2-react-grids": "^32.1.25",
     "axios": "^1.13.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

@@ -7,6 +7,13 @@
   font-family: Arial, sans-serif;
 }
 
+.staff-container h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #6b2e1f;
+  margin-bottom: 20px;
+}
+
 /* ===== Add Button ===== */
 
 .staff-container > button {

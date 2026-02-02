@@ -24,6 +24,7 @@ import MenuManagement from './pages/Manager/MenuManagement/MenuManagement'
 import TableManagement from './pages/Manager/TableManagement/TableManagement'
 import FeedbackManagement from './pages/Manager/FeedbackManagement/FeedbackManagement'
 import Feedback from './pages/Feedback/Feedback'
+import Profile from './pages/Profile/Profile'
 
 function App() {
   return (
@@ -33,17 +34,18 @@ function App() {
         {/* Default Redirect */}
         <Route path="/" element={<Navigate to="/home" replace />} />
 
-    <Route path="/home" element={<Home />}>
-      <Route index element={<HomeContents/>} />
-      <Route path="menu" element={<Menu />} />
-      <Route path="orders" element={<Orders />} />
-      <Route path="reserve" element={<Reserve />} />
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
-      <Route path="feedback" element={<Feedback />} />
-      <Route path="cart" element={<Cart />} />
-    </Route>
-  
+        <Route path="/home" element={<Home />}>
+          <Route index element={<HomeContents/>} />
+          <Route path="menu" element={<Menu />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="reserve" element={<Reserve />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="feedback" element={<Feedback />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+      
         <Route path='/admin' element={<AdminHome/>}>
           <Route path='/admin' element={<AdminHome/>}/>
           <Route path='/admin/dashboard' element={<AdminDashboard/>}/>

@@ -7,9 +7,6 @@
   justify-content: space-between;
 }
 
-        
-        
-
 .card-img-top {
   height: 200px;
   width:100%;
@@ -74,4 +71,43 @@
     border-radius: 20px;
     font-weight: bold;
     float: right;
+}
+
+
+@media (max-width: 768px) {
+  .card,
+  .dish-card {
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  .card-img-top {
+    height: 180px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .card,
+  .dish-card {
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  .card-img-top {
+    height: 160px !important;
+  }
+
+  .button1 {
+    flex-direction: column !important;
+    gap: 10px;
+  }
+
+  .btn1 {
+    width: 100% !important;
+  }
+
+  .price-tag {
+    float: none !important;
+    align-self: flex-end;
+  }
 }

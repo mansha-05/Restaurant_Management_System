@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.rms.dtos.NewOrderRowDto;
 import com.rms.dtos.OrderItemDto;
 import com.rms.dtos.OrderResponseDto;
 import com.rms.dtos.OrderRowDto;
@@ -65,6 +66,34 @@ public class OrderServiceImpl implements OrderService {
 
 	    return new ArrayList<>(map.values());
 	}
+
+	public List<NewOrderRowDto> getOrdersForTableUI() {
+
+	    List<NewOrderRowDto> rawRows =
+	            orderRepository.fetchRawOrderRows();
+
+	    Map<Long, NewOrderRowDto> map = new LinkedHashMap<>();
+
+	    for (NewOrderRowDto row : rawRows) {
+
+	        if (!map.containsKey(row.getOrderId())) {
+	            map.put(row.getOrderId(), row);
+	        } else {
+	            NewOrderRowDto existing = map.get(row.getOrderId());
+	            existing.setItems(
+	                existing.getItems() + ", " + row.getItems()
+	            );
+	        }
+	    }
+
+	    return new ArrayList<>(map.values());
+	}
+
+
+    public List<NewOrderRowDto> searchOrdersByCustomer(String name) {
+        return orderRepository.searchOrdersByCustomer(name);
+    }
+
 
 
 

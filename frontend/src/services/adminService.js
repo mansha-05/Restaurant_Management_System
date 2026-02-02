@@ -38,3 +38,12 @@ export async function fetchAllUsers() {
   }
 }
 
+export const fetchAdminDashboard = async () => {
+  try {
+    const res = await axios.get(`${config.server}/admin/dashboard/summary`);
+    return res.data;
+  } catch (error) {
+    console.error("Dashboard fetch failed:", error);
+    throw error;
+  }
+};
