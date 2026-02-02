@@ -1,0 +1,168 @@
+/* Overlay */
+.amm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+/* Modal card */
+.amm-modal {
+  background: #ffffff;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 16px;
+  padding: 28px 30px 30px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  animation: popup 0.25s ease;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.amm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.amm-header h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #222;
+}
+
+.amm-close {
+  border: none;
+  background: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Subtitle */
+.amm-subtitle {
+  margin-top: 6px;
+  margin-bottom: 22px;
+  color: #777;
+  font-size: 15px;
+}
+
+/* Form */
+.amm-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  margin-top: 14px;
+  color: #333;
+}
+
+.amm-form input {
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.amm-form input:focus {
+  border-color: #ff5c07;
+}
+
+/* Password row */
+.amm-password-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.amm-password-box input {
+  flex: 1;
+}
+
+.amm-show-btn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.amm-show-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Error text */
+.amm-error {
+  color: #e11d48;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Submit button */
+.amm-submit {
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #ff5c07;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.amm-submit:hover {
+  background: #e65300;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .amm-modal {
+    margin: 0 12px;
+    padding: 22px;
+  }
+}
+
+/* Fixed height container */
+.amm-preview-box {
+  width: 140px;
+  height: 100px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background: #eee;
+  overflow: hidden;
+}
+
+/* Image fits box */
+.amm-image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Placeholder text */
+.amm-preview-placeholder {
+  color: #999;
+  font-size: 14px;
+}
+

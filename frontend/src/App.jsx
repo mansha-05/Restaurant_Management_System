@@ -24,6 +24,9 @@ import MenuManagement from './pages/Manager/MenuManagement/MenuManagement'
 import TableManagement from './pages/Manager/TableManagement/TableManagement'
 import FeedbackManagement from './pages/Manager/FeedbackManagement/FeedbackManagement'
 import Feedback from './pages/Feedback/Feedback'
+import Checkout from './pages/Checkout/Checkout'
+import OrderSuccess from './pages/OrderSuccess/OrderSuccess'
+import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
 
 function App() {
   return (
@@ -42,7 +45,11 @@ function App() {
       <Route path="register" element={<Register />} />
       <Route path="feedback" element={<Feedback />} />
       <Route path="cart" element={<Cart />} />
+      <Route path="checkout" element={<Checkout />} />
+      <Route path="payment-success" element={<PaymentSuccess />} />
+      <Route path="order-success" element={<h2>Order Placed Successfully 🎉</h2>} />
     </Route>
+      <Route path="/payment-success" element={<PaymentSuccess />} />
   
         <Route path='/admin' element={<AdminHome/>}>
           <Route path='/admin' element={<AdminHome/>}/>

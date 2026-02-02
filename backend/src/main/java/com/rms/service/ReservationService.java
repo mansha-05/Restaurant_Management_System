@@ -8,6 +8,7 @@ import com.rms.dtos.ReservationRequestDTO;
 import com.rms.dtos.ReservationResponseDTO;
 import com.rms.dtos.TableResponseDTO;
 import com.rms.entities.ReservationStatus;
+import com.rms.entities.TableReservation;
 import com.rms.entities.TableStatus;
 
 public interface ReservationService {
@@ -37,7 +38,9 @@ public interface ReservationService {
 	boolean hasActiveReservation(Long userId);
 	
 	//check if user has a reservation with entered table no
-	Long validateTableNumber(Long userId, int tableNo);
+	TableReservation validateTableNumber(Long userId, int tableNo);
 
 	List<ManagerReservationDTO> getReservations(String status);
+	
+	TableReservation getReservationForBilling(Long reservationId, Long userId);
 }

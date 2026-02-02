@@ -29,5 +29,8 @@ public class Menu extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-  
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MenuStatus status = MenuStatus.ENABLED;
 }

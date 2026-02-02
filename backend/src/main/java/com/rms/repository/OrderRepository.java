@@ -47,9 +47,5 @@ public interface OrderRepository extends JpaRepository<Orders, Long> {
 			""")
 			List<OrderRowDto> findOrderRowsByUserId(Long userId);
 
-
-
-
-
-
+	    boolean existsByReservation_Id(Long reservationId);
 }

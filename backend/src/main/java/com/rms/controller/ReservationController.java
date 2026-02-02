@@ -12,6 +12,7 @@ import com.rms.dtos.ReservationRequestDTO;
 import com.rms.dtos.ReservationResponseDTO;
 import com.rms.dtos.UpdateReservationStatusDTO;
 import com.rms.dtos.UpdateTableStatusDTO;
+import com.rms.entities.TableReservation;
 import com.rms.dtos.TableResponseDTO;
 import com.rms.service.ReservationServiceImpl;
 
@@ -118,15 +119,32 @@ public class ReservationController {
 
    
     @GetMapping("/validate")
-    public Map<String, Object> validateTable(
+    public ResponseEntity<?> validateTable(
             @RequestParam Long userId,
-            @RequestParam int tableNo) {
+            @RequestParam int tableNo
+    ) {
+        try {
+            TableReservation reservation =
+                    reservationService.validateTableNumber(userId, tableNo);
 
-        Long tableId = reservationService.validateTableNumber(userId, tableNo);
+            return ResponseEntity.ok(
+                Map.of(
+                    "valid", true,
+                    "reservationId", reservation.getId(),
+                    "tableNo", reservation.getTable().getTable_no()
+                )
+            );
 
-        return Map.of(
-            "valid", true,
-            "tableId", tableId
-        );
+        } catch (RuntimeException ex) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(
+                        Map.of(
+                            "valid", false,
+                            "message", ex.getMessage()
+                        )
+                    );
+        }
     }
+
 }

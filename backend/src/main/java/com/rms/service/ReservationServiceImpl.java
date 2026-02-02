@@ -166,15 +166,15 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Long validateTableNumber(Long userId, int tableNo) {
-        TableReservation res = reservationRepo.findActiveReservation(userId)
-                .orElseThrow(() -> new RuntimeException("No active reservation"));
+    public TableReservation validateTableNumber(Long userId, int tableNo) {
 
-        if (res.getTable().getTable_no() != tableNo) {
-            throw new RuntimeException("Invalid table number");
-        }
-        return res.getTable().getId();
+        return reservationRepo
+            .findActiveReservation(userId, tableNo)
+            .orElseThrow(() ->
+                new RuntimeException("No active reservation for this table")
+            );
     }
+
 
 	@Override
 
@@ -241,4 +241,22 @@ public class ReservationServiceImpl implements ReservationService {
 
         return dto;
     }
+    
+    public TableReservation getReservationForBilling(Long reservationId, Long userId) {
+
+        TableReservation reservation = reservationRepo
+                .findById(reservationId)
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));
+
+        if (!reservation.getUser().getId().equals(userId)) {
+            throw new RuntimeException("Reservation does not belong to user");
+        }
+
+        if (reservation.getStatus() != ReservationStatus.CONFIRMED) {
+            throw new RuntimeException("Reservation not confirmed");
+        }
+
+        return reservation;
+    }
+
 }

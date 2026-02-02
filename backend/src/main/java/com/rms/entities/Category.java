@@ -17,5 +17,6 @@ public class Category extends BaseEntity {
     @Column(name="category_name",nullable = false, unique = true)
     private String categoryName;
     private String description;
-   
+    @Enumerated(EnumType.STRING)
+    private CategoryStatus status = CategoryStatus.ENABLED; //ENABLED,DISABLED
 } 

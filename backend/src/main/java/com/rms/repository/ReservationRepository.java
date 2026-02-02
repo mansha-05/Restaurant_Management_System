@@ -35,15 +35,42 @@ public interface ReservationRepository extends JpaRepository<TableReservation, L
             @Param("currentTime") LocalDateTime currentTime);
     
 	@Query("""
-	SELECT r FROM TableReservation r
-	WHERE r.user.id = :userId
-	AND r.status = 'CONFIRMED'
-	AND r.reservationEnd > CURRENT_TIMESTAMP
+		SELECT r FROM TableReservation r
+		WHERE r.user.id = :userId
+		AND r.status = com.rms.entities.ReservationStatus.CONFIRMED
+		AND CURRENT_TIMESTAMP BETWEEN r.reservationStart AND r.reservationEnd
 	""")
 	Optional<TableReservation> findActiveReservation(Long userId);
 
 	//List<TableReservation> findByStatus(ReservationStatus valueOf);
 
 	List<TableReservation> findByStatus(ReservationStatus reservationStatus);
+	
+	Optional<TableReservation> findByIdAndUserId(Long id, Long userId);
+
+	@Query("""
+			SELECT tr FROM TableReservation tr 
+		       WHERE tr.user.id = :userId 
+		       AND tr.table.table_no = :tableNo   
+		       AND tr.status = com.rms.entities.ReservationStatus.CONFIRMED 
+			   AND CURRENT_TIMESTAMP BETWEEN tr.reservationStart AND tr.reservationEnd
+			""")
+//	 AND CURRENT_TIMESTAMP BETWEEN tr.reservationStart AND tr.reservationEnd
+		Optional<TableReservation> findActiveReservation(@Param("userId") Long userId,
+		                                                 @Param("tableNo") int tableNo);
+	
+	@Query("""
+			   SELECT tr FROM TableReservation tr
+			   WHERE tr.id = :reservationId
+			   AND tr.user.id = :userId
+			   AND tr.status = com.rms.entities.ReservationStatus.CONFIRMED
+			""")
+			Optional<TableReservation> findReservationForPayment(
+			    Long reservationId,
+			    Long userId
+			);
+
+
+
 
 }

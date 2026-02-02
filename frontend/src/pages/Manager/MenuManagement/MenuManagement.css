@@ -1,0 +1,94 @@
+/* Filters row */
+.menu-filters {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+  align-items: center;
+}
+
+.menu-filters input.search-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.menu-filters input.search-input:focus {
+  border-color: #ff5c07;
+  box-shadow: 0 0 5px rgba(255, 92, 7, 0.4);
+}
+
+/* Dropdowns */
+.menu-filters select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.menu-filters select:focus {
+  border-color: #ff5c07;
+  box-shadow: 0 0 5px rgba(255, 92, 7, 0.4);
+}
+
+/* Card buttons alignment */
+.dish-card .button1 {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.dish-card .button1 .btn1 {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dish-card .button1 .btn1:hover {
+  opacity: 0.9;
+}
+
+.btn1.mt-2 {
+  margin-top: 8px;
+}
+
+/* Different colors for enable/disable */
+.dish-card .button1 .btn1:nth-child(2) {
+  background-color: #ff5c07;
+  color: white;
+}
+
+.dish-card .button1 .btn1:nth-child(2):hover {
+  background-color: #e65300;
+}
+
+/* Edit button style */
+.dish-card .button1 .btn1:first-child {
+  background-color: #f0f0f0;
+}
+
+.dish-card .button1 .btn1:first-child:hover {
+  background-color: #ddd;
+}
+
+/* Optional: add subtle shadow to cards */
+.dish-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dish-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}

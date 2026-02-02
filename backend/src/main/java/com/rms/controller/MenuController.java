@@ -3,19 +3,24 @@ package com.rms.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rms.dtos.MenuRequest;
 import com.rms.dtos.MenuResp;
 import com.rms.dtos.PopularDishDto;
+import com.rms.entities.Menu;
 import com.rms.service.MenuService;
 
 import lombok.RequiredArgsConstructor;
@@ -47,8 +52,9 @@ public class MenuController {
 		return ResponseEntity.ok(menuItemsByCategory);
 	}
 	
-	@PostMapping("/addMenu")
-	public ResponseEntity<?> addMenu(@RequestBody MenuRequest request)
+	@PostMapping(value = "/add",
+		    consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<?> addMenu(@ModelAttribute MenuRequest request)
 	{
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(menuService.addMenuItems(request));
@@ -57,5 +63,23 @@ public class MenuController {
 	@GetMapping("/popular")
     public List<PopularDishDto> getPopularDishes() {
         return menuService.getPopularDishes(5); // top 5 popular dishes
+    }
+	
+	@GetMapping("/manager")
+	public ResponseEntity<?> getAllMenuForManager() {
+	    return ResponseEntity.ok(menuService.getAllMenuForManager());
+	}
+	
+	@PutMapping(value = "/update",
+			  consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+			  )
+	public ResponseEntity<?> updateMenu(@ModelAttribute MenuRequest request) {
+	    return ResponseEntity.ok(menuService.updateMenuItem(request));
+	}
+	
+	@PutMapping("/toggleStatus/{id}")
+    public ResponseEntity<?> toggleMenuStatus(@PathVariable Long id) {
+		Menu item = menuService.toggleStatus(id);
+	    return ResponseEntity.ok(item);
     }
 }

@@ -12,4 +12,5 @@ public class MenuResp {
 	private String description;
 	private double price;
 	private String imageUrl;
+	private String status;
 }

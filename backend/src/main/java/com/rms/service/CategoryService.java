@@ -13,4 +13,9 @@ public interface CategoryService {
 
 	List<CategoryResp> getCategories();
 
+	Category updateCategory(Long id, Category updated);
+	
+	ApiResponse toggleCategoryStatus(Long id);
+	
+	List<CategoryResp> getAllCategoriesAdmin();
 }

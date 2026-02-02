@@ -76,7 +76,7 @@ function Login() {
       const role = response.data.role
       if(role == "ADMIN") navigate("/admin/dashboard");
       else if(role == "MANAGER") navigate("/manager/dashboard");
-      else navigate("/home");
+      else navigate(redirectTo);
       
     } else {
       toast.error(response["error"]);
