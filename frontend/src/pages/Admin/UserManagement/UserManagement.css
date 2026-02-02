@@ -234,3 +234,45 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+
+/* Syncfusion table alignment */
+.syncfusion-table {
+  background: #f9f4f4;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+/* Header styling */
+.e-grid .e-headercell {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #111827;
+  font-size: 14px;
+}
+
+/* Row text */
+.e-grid .e-rowcell {
+  font-size: 14px;
+  color: #1f2937;
+  padding: 12px 10px;
+}
+
+/* Pagination alignment */
+.e-grid .e-pager {
+  margin-top: 12px;
+  justify-content: center;
+}
+
+/* Remove weird borders */
+.e-grid {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Role column uppercase */
+.e-grid .e-rowcell:nth-child(4) {
+  text-transform: uppercase;
+  font-weight: 500;
+}

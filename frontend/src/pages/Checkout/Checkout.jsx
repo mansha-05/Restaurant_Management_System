@@ -7,6 +7,7 @@ import BillSummary from "../../components/BillSummary/BillSummary";
 import axios from "axios";
 import { config } from "../../services/config";
 
+const token = localStorage.getItem("token")
 const Checkout = () => {
   const cart = useSelector((state) => state.cart);
   const { user } = useAuth();
@@ -26,9 +27,15 @@ const Checkout = () => {
       return;
     }
 
-    // 🔑 CHECK RESERVATION FIRST
+    // CHECK RESERVATION FIRST
     axios
-      .get(`${config.server}/reservations/check/user/${user.userId}`)
+      .get(`${config.server}/reservations/check/user/${user.userId}`,
+        {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+      )
       .then((res) => {
         setShowPopup(true); // popup decides which UI to show
       })

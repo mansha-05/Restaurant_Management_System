@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "./ReservationPopup.css";
 
+const token = localStorage.getItem("token")
 const ReservationPopup = ({ userId, onTableValidated }) => {
   const [hasReservation, setHasReservation] = useState(null);
   const [tableNo, setTableNo] = useState("");
@@ -13,7 +14,13 @@ const ReservationPopup = ({ userId, onTableValidated }) => {
 
   useEffect(() => {
     axios
-      .get(`${config.server}/reservations/check/user/${userId}`)
+      .get(`${config.server}/reservations/check/user/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => setHasReservation(res.data.reserved))
       .catch(() => setHasReservation(false));
   }, [userId]);
@@ -22,7 +29,12 @@ const ReservationPopup = ({ userId, onTableValidated }) => {
     try {
       const res = await axios.get(
         `${config.server}/reservations/validate`,
-        { params: { userId, tableNo } }
+        { params: { userId, tableNo }},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       if (res.data.valid) {

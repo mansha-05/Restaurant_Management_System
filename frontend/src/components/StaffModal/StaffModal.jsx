@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "../../pages/Admin/StaffManagement/StaffManagement.css";
 import { toast } from "react-toastify";
 
+
+const token = localStorage.getItem("token")
 const StaffModal = ({ editingStaff, onSave, closeModal }) => {
 
-  // ✅ MUST be inside component
+  // MUST be inside component
   const [roles, setRoles] = useState([]);
 
   const [formData, setFormData] = useState({
@@ -16,9 +18,7 @@ const StaffModal = ({ editingStaff, onSave, closeModal }) => {
     salary: ""
   });
 
-  // =========================
   // Autofill edit
-  // =========================
   useEffect(() => {
     if (editingStaff) {
       setFormData({
@@ -41,19 +41,22 @@ const StaffModal = ({ editingStaff, onSave, closeModal }) => {
     }
   }, [editingStaff]);
 
-  // =========================
+
   // Fetch roles
-  // =========================
   useEffect(() => {
-    fetch("http://localhost:8080/staff/staff/roles")
+    fetch(`${config.server}/staff/staff/roles`, 
+      {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    )
       .then(res => res.json())
       .then(data => setRoles(data))
       .catch(err => console.error(err));
   }, []);
 
-  // =========================
   // Input change
-  // =========================
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -61,9 +64,7 @@ const StaffModal = ({ editingStaff, onSave, closeModal }) => {
     });
   };
 
-  // =========================
   // Submit
-  // =========================
   const handleSubmit = (e) => {
     e.preventDefault();
 

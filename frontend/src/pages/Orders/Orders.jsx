@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import "./Orders.css";
 import { useAuth } from "../../providers/AuthProvider";
 
+
+const token = localStorage.getItem("token")
 const Orders = () => {
 const navigate = useNavigate();
 
@@ -14,7 +16,13 @@ const navigate = useNavigate();
   useEffect(() => {
     if (user?.userId) {
       axios
-        .get(`http://localhost:8080/orders/user/${user.userId}`)
+        .get(`${config.server}/orders/user/${user.userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then(res => setOrders(res.data))
         .catch(err => console.log(err));
     }

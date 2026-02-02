@@ -1,5 +1,5 @@
-/* Main content wrapper */
-.content {
+Main content wrapper
+/* .content {
   padding: 20px;
   background: #fdfbf8;
   min-height: calc(100vh - 70px);
@@ -10,95 +10,76 @@
   font-weight: 700;
   color: #6b2e1f;
   margin-bottom: 25px;
+} */
+
+.admin-dashboard {
+  padding: 20px;
 }
 
-/* --- STAT CARDS SECTION --- */
-.stats-container {
-  display: flex;
+.admin-dashboard h1{
+  font-size: 32px;
+  font-weight: 700;
+  color: #6b2e1f;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* KPI grid */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin-bottom: 30px;
-  flex-wrap: wrap;
 }
 
-.stat-card {
-  background: #ffffff;
-  padding: 20px 25px;
-  border-radius: 12px;
-  width: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-  border: 1px solid #eee;
+/* Charts grid */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 }
 
-.stat-card-title {
-  font-size: 14px;
-  color: #444;
-  font-weight: 500;
-}
-
-.stat-card-value {
-  font-size: 30px;
-  font-weight: bold;
-  color: #ff6b00;
-  margin-top: 5px;
-}
-
-.stat-card-icon {
-  align-self: flex-end;
-  font-size: 28px;
-  color: #ff6b00;
-  opacity: 0.8;
-}
-
-/* --- CHARTS SECTION --- */
-.charts-row {
-  display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-}
-
-/* Chart Cards */
-.chart-card {
-  background: #ffffff;
-  padding: 20px;
+/* Card styling */
+.chart-card,
+.kpi-card {
+  background: white;
+  padding: 16px;
   border-radius: 14px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-  border: 1px solid #eee;
-  min-width: 350px;
-  text-align: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
 }
 
-.chart-card h3 {
-  margin-bottom: 15px;
-  font-size: 18px;
-  color: #333;
-  font-weight: 600;
-}
+/* Tablet view */
 
-/* Large Chart (Revenue Trend) */
-.large-chart {
-  width: 100%;
-  margin-top: 10px;
-  padding: 20px 25px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .stats-container {
-    flex-direction: column;
-    gap: 15px;
+@media (max-width: 1024px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .charts-row {
-    flex-direction: column;
-    gap: 20px;
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*  Mobile view */
+
+@media (max-width: 600px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
   }
 
-  .chart-card,
-  .large-chart {
-    width: 100%;
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dashboard h1 {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 14px;
   }
 }

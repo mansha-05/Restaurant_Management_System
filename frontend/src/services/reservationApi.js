@@ -1,9 +1,11 @@
 import axios from "axios";
+import { config } from "./config";
 
+const token = localStorage.getItem("token")
 const API = axios.create({
-  baseURL: "http://localhost:8080/reservations",
+  baseURL: `${config.server}/reservations`,
   headers: {
-    // token: localStorage.getItem('token'),
+    Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   },
 });

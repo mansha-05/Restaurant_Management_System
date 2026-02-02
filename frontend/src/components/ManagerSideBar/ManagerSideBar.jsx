@@ -27,7 +27,7 @@ function ManagerSidebar({ isOpen, onClose }) {
         </div>
 
         <ul>
-          <li><Link to="/manager/dashboard" onClick={onClose}><FiGrid size={18} /> Dashboard</Link></li>
+          {/* <li><Link to="/manager/dashboard" onClick={onClose}><FiGrid size={18} /> Dashboard</Link></li> */}
           <li><Link to="/manager/orders" onClick={onClose}><FiShoppingCart size={20} /> Orders</Link></li>
           <li><Link to="/manager/reservations" onClick={onClose}><FiCalendar size={20} /> Reservations</Link></li>
           <li><Link to="/manager/menu" onClick={onClose}> <FiMenu size={20} /> Menu Management</Link></li>

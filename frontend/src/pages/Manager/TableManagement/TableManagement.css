@@ -328,3 +328,107 @@
 .btn-submit:hover {
   background-color: #e64500;
 }
+
+/* ========================= */
+/* TABLET */
+/* ========================= */
+@media (max-width: 900px) {
+
+  .table-mgmt-container {
+    padding: 20px;
+  }
+
+  .mgmt-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .header-left h1 {
+    font-size: 24px;
+  }
+
+  .stats-container {
+    flex-direction: column;
+  }
+
+  .table-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .modal-content {
+    max-width: 90%;
+    padding: 24px;
+  }
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+@media (max-width: 480px) {
+
+  .table-mgmt-container {
+    padding: 12px;
+  }
+
+  .header-left h1 {
+    font-size: 20px;
+  }
+
+  .header-left p {
+    font-size: 12px;
+  }
+
+  .btn-add-table {
+    width: 100%;
+    justify-content: center;
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .stat-card {
+    padding: 18px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .table-card {
+    padding: 16px;
+  }
+
+  .card-header h3 {
+    font-size: 16px;
+  }
+
+  .seats-text {
+    font-size: 12px;
+  }
+
+  .btn-action {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    padding: 18px;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .modal-subtitle {
+    font-size: 12px;
+  }
+}

@@ -1,45 +1,50 @@
-.top{
-    background-color: hsl(37, 59%, 91%);
-    height: 800px;
-    /* justify-content: center; */
+.top {
+  background-color: hsl(37, 59%, 91%);
+  padding: 40px 20px;
+  min-height: 600px;
 }
 
+/* TAG */
 .pill-tag {
   display: inline-block;
   padding: 8px 18px;
-  background-color: #fcf4e8; 
-  color: #c4490f;            
-  border-radius: 999px;     
+  background-color: #fcf4e8;
+  color: #c4490f;
+  border-radius: 999px;
   font-size: 14px;
   font-weight: 500;
 }
+
 .pill-tag-container {
   display: flex;
   justify-content: center;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
+/* HEADINGS */
 .heading {
-    color: #c4490f; 
-    text-align: center;
-
-}
-.p1{
+  color: #c4490f;
   text-align: center;
+  margin-top: 12px;
 }
 
-.title-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 12px; /* spacing between pill and heading */
+.p1 {
+  text-align: center;
+  margin-top: 6px;
+  color: #6b4b3e;
 }
+
+/* GRID */
 .popular-container {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  align-items: stretch; /* all cards same height */
+  align-items: stretch;
   justify-content: center;
+  margin-top: 30px;
 }
+
+/* BUTTON */
 .view-menu-container {
   display: flex;
   justify-content: center;
@@ -58,4 +63,54 @@
 .view-menu-btn:hover {
   transform: scale(1.05);
   transition: transform 0.2s ease;
+}
+
+/* ========================= */
+/* TABLET */
+/* ========================= */
+@media (max-width: 768px) {
+
+  .top {
+    padding: 30px 15px;
+  }
+
+  .heading {
+    font-size: 24px;
+  }
+
+  .p1 {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+
+  .popular-container {
+    gap: 16px;
+  }
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+@media (max-width: 480px) {
+
+  .top {
+    padding: 24px 10px;
+  }
+
+  .pill-tag {
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+
+  .heading {
+    font-size: 20px;
+  }
+
+  .p1 {
+    font-size: 13px;
+  }
+
+  .popular-container {
+    gap: 12px;
+  }
 }

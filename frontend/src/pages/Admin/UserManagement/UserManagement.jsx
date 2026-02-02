@@ -3,6 +3,14 @@ import "./UserManagement.css";
 import AddManagerModal from "../../../components/AddManagerModal/AddManagerModal";
 import { createManager, fetchAllUsers } from "../../../services/adminService";
 import { toast } from "react-toastify";
+import {
+  GridComponent,
+  ColumnsDirective,
+  ColumnDirective,
+  Page,
+  Sort,
+  Inject
+} from "@syncfusion/ej2-react-grids";
 
 export default function UserManagement() {
 
@@ -37,6 +45,15 @@ export default function UserManagement() {
   const totalUsers = users.length;
   const customers = users.filter((u) => u.role === "CUSTOMER").length;
   const staff = users.filter((u) => u.role === "MANAGER").length;
+
+  const gridData = filteredUsers.map((u) => ({
+    userId: u.userId,
+    name: u.name,
+    email: u.email,
+    phone: u.phone,
+    role: u.role,
+    city: u.city || "-"
+  }));
 
   return (
     <div className="user-management">
@@ -81,7 +98,7 @@ export default function UserManagement() {
       </div>
 
       {/* Table */}
-      <div className="um-table-wrapper">
+      {/* <div className="um-table-wrapper">
         {loading ? (
           <div className="loading">Loading users...</div>
         ) : (
@@ -134,7 +151,56 @@ export default function UserManagement() {
             </tbody>
           </table>
         )}
-      </div>
+      </div> */}
+      <div className="um-table-wrapper syncfusion-table">
+  {loading ? (
+    <div className="loading">Loading users...</div>
+  ) : (
+    <GridComponent
+      dataSource={gridData}
+      allowPaging={true}
+      allowSorting={true}
+      width="100%"
+      height="auto"
+      pageSettings={{ pageSize: 6, pageCount: 4 }}
+      gridLines="Horizontal"
+    >
+      <ColumnsDirective>
+        <ColumnDirective
+          field="name"
+          headerText="Name"
+          width="160"
+          textAlign="Left"
+        />
+        <ColumnDirective
+          field="email"
+          headerText="Email"
+          width="220"
+        />
+        <ColumnDirective
+          field="phone"
+          headerText="Phone"
+          width="140"
+          textAlign="Center"
+        />
+        <ColumnDirective
+          field="role"
+          headerText="Role"
+          width="140"
+          textAlign="Center"
+        />
+        <ColumnDirective
+          field="city"
+          headerText="City"
+          width="140"
+          textAlign="Center"
+        />
+      </ColumnsDirective>
+
+      <Inject services={[Page, Sort]} />
+    </GridComponent>
+  )}
+</div>
 
       {/* Add Manager Modal */}
       <AddManagerModal

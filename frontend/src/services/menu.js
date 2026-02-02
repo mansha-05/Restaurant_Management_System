@@ -3,32 +3,38 @@ import { config } from './config'
 
 export async function getMenu() {
   try {
-    // create url
+    const token = localStorage.getItem("token")
+
     const url = `${config.server}/menu`
 
-    // create headers with require token
-    // send GET request and get the response
-    const response = await axios.get(url
-    //     , {
-    //   headers: {
-    //     token: localStorage.getItem('token'),
-    //   },
-    // }
-    )
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
 
-    // return response body
     return response.data
   } catch (ex) {
     console.log(`exception: `, ex)
   }
 }
+
 export async function getAllMenuManager() {
+  const token = localStorage.getItem("token")
+
   const url = `${config.server}/menu/manager`;
-  const response = await axios.get(url);
+  const response = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return response.data;
 }
 
 export async function saveMenuItem(menuItem) {
+  const token = localStorage.getItem("token")
+
   const url = `${config.server}/menu/add`;
 
   const formData = new FormData();
@@ -41,19 +47,16 @@ export async function saveMenuItem(menuItem) {
   const response = await axios.post(url, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
     },
   });
 
   return response.data;
 }
 
-// export async function saveMenuItem(menuItem) {
-//   const url = `${config.server}/menu/addMenu`;
-//   const response = await axios.post(url, menuItem);
-//   return response.data;
-// }
-
 export async function updateMenuItem(menuItem) {
+  const token = localStorage.getItem("token")
+
   const url = `${config.server}/menu/update`;
 
   const formData = new FormData();
@@ -70,20 +73,22 @@ export async function updateMenuItem(menuItem) {
   const response = await axios.put(url, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
     },
   });
 
   return response.data;
 }
 
-// export async function updateMenuItem(menuItem) {
-//   const url = `${config.server}/menu/updateMenu`;
-//   const response = await axios.post(url, menuItem);
-//   return response.data;
-// }
-
 export async function toggleMenuStatus(id) {
+  const token = localStorage.getItem("token")
+
   const url = `${config.server}/menu/toggleStatus/${id}`;
-  const response = await axios.put(url);
+  const response = await axios.put(url, {}, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return response.data;
 }

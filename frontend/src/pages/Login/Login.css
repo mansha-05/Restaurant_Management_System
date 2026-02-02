@@ -129,7 +129,7 @@ label {
 }
 
 /* Google Button */
-.google-btn {
+/* .google-btn {
   width: 100%;
   height: 48px;
   border: 1px solid #ddd;
@@ -145,7 +145,7 @@ label {
 
 .google-btn i {
   font-size: 20px;
-}
+} */
 
 /* Sign Up */
 .signup-text {
@@ -176,4 +176,93 @@ footer {
 
 .input-error {
   border: 1px solid #e53935 !important;
+}
+
+
+/* ========================= */
+/* TABLET RESPONSIVENESS */
+/* ========================= */
+@media (max-width: 768px) {
+
+  .login-container {
+    padding: 20px 15px;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 28px;
+  }
+
+  .login-top h1 {
+    font-size: 30px;
+  }
+
+  .login-top p {
+    font-size: 15px;
+  }
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+@media (max-width: 480px) {
+
+  .login-container {
+    padding: 15px 10px;
+  }
+
+  .login-icon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .login-icon i {
+    font-size: 22px;
+  }
+
+  .login-top h1 {
+    font-size: 24px;
+  }
+
+  .login-top p {
+    font-size: 14px;
+  }
+
+  .login-card {
+    width: 100%;
+    padding: 22px;
+    border-radius: 10px;
+  }
+
+  .login-card h2 {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .input-box {
+    height: 44px;
+  }
+
+  .input-box input {
+    font-size: 14px;
+  }
+
+  .login-btn {
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .signup-text {
+    font-size: 14px;
+  }
+
+  footer {
+    font-size: 12px;
+    text-align: center;
+    padding: 0 10px;
+  }
 }

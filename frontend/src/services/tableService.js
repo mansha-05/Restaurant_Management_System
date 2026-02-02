@@ -1,4 +1,6 @@
-const BASE_URL = "http://localhost:8080/manager/tables";
+import { config } from "./config";
+
+const BASE_URL = `${config.server}/manager/tables`;
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");

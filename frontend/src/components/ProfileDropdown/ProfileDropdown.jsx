@@ -35,7 +35,7 @@ export default function ProfileDropdown({ onLogout }) {
           <div
             className="profile-item"
             onClick={() => {
-              navigate("/profile");
+              navigate("/home/profile");
               setOpen(false);
             }}
           >

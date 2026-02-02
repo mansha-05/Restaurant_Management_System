@@ -17,6 +17,7 @@ const PaymentSuccess = () => {
   useEffect(() => {
     if ( !user || !sessionId) return; 
 
+    const token = localStorage.getItem("token")
     const reservationId = localStorage.getItem("reservationId");
     const finalPayable = localStorage.getItem("finalPayable");
     const items = JSON.parse(localStorage.getItem("cartItems") || "[]");
@@ -35,6 +36,11 @@ const PaymentSuccess = () => {
             reservationId: Number(reservationId),
             items,
             finalPayable: Number(finalPayable)
+            },
+                {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
             });
 
             toast.success("Payment successful 🎉");

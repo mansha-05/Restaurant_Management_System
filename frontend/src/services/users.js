@@ -34,3 +34,39 @@ export async function login(email, password) {
         return { status: "error", error: "Invalid credentials or unauthorized" };
     }
 }
+
+export const getUserProfile = async (userId) => {
+    const token = localStorage.getItem("token");
+    const res = await axios.get(`${config.server}/users/profile/${userId}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+    return res.data;
+};
+
+export const updateUserProfile = async (userId, data) => {
+    const token = localStorage.getItem("token");
+    const res = await axios.put(`${config.server}/users/profile/${userId}`, data,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+    );
+    return res.data;
+};
+
+export const getCurrentUser = async () => {
+  const token = localStorage.getItem("token");
+
+  const res = await axios.get(`${config.server}/users/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.data;
+};

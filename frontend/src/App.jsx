@@ -17,7 +17,7 @@ import StaffManagement from './pages/Admin/StaffManagement/StaffManagement';
 import UserManagement from './pages/Admin/UserManagement/UserManagement'
 import CategoryManagement from './pages/Admin/CategoryManagement/CategoryManagement'
 import ManagerHome from './pages/Manager/ManagerHome/ManagerHome'
-import ManagerDashboard from './pages/Manager/ManagerDashboard/ManagerDashboard'
+//import ManagerDashboard from './pages/Manager/ManagerDashboard/ManagerDashboard'
 import OrdersManagement from './pages/Manager/OrdersManagement/OrdersManagement'
 import ReservationsManagement from './pages/Manager/ReservationsManagement/ReservationsManagement'
 import MenuManagement from './pages/Manager/MenuManagement/MenuManagement'
@@ -25,8 +25,9 @@ import TableManagement from './pages/Manager/TableManagement/TableManagement'
 import FeedbackManagement from './pages/Manager/FeedbackManagement/FeedbackManagement'
 import Feedback from './pages/Feedback/Feedback'
 import Checkout from './pages/Checkout/Checkout'
-import OrderSuccess from './pages/OrderSuccess/OrderSuccess'
+//import OrderSuccess from './pages/OrderSuccess/OrderSuccess'
 import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
+import Profile from './pages/Profile/Profile'
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
       <Route path="checkout" element={<Checkout />} />
       <Route path="payment-success" element={<PaymentSuccess />} />
       <Route path="order-success" element={<h2>Order Placed Successfully 🎉</h2>} />
+      <Route path="profile" element={<Profile />} />
     </Route>
       <Route path="/payment-success" element={<PaymentSuccess />} />
   
@@ -60,7 +62,6 @@ function App() {
         </Route>
         <Route path='/manager' element={<ManagerHome/>}>
           <Route path='/manager' element={<ManagerHome/>}/>
-          <Route path='/manager/dashboard' element={<ManagerDashboard/>}/>
           <Route path='/manager/orders' element={<OrdersManagement/>}/>
           <Route path='/manager/reservations' element={<ReservationsManagement/>}/>
           <Route path='/manager/menu' element={<MenuManagement/>}/>

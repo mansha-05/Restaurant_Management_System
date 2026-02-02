@@ -5,6 +5,7 @@ import { config } from "../../services/config";
 import "./BillSummary.css";
 import { toast } from "react-toastify";
 
+const token = localStorage.getItem("token")
 const BillSummary = ({ user, reservationId, tableNo }) => {
   const { items = [] } = useSelector((state) => state.cart || {});
   
@@ -20,7 +21,13 @@ const BillSummary = ({ user, reservationId, tableNo }) => {
       items: items.map(i => ({ menuId: i.id, quantity: i.quantity }))
     };
 
-    axios.post(`${config.server}/billing/summary`, payload)
+    axios.post(`${config.server}/billing/summary`, payload,
+      {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+    )
       .then(res => setBill(res.data))
       .catch(err => {
         console.error(err);
@@ -37,7 +44,12 @@ const BillSummary = ({ user, reservationId, tableNo }) => {
           userId: user.userId,
           reservationId,
           amount: bill.finalPayable
-        }
+        },
+        {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
       );
       localStorage.setItem("reservationId", reservationId);
       localStorage.setItem("finalPayable", bill.finalPayable);

@@ -3,26 +3,28 @@ import axios from "axios";
 import "./Feedback.css";
 import { useAuth } from "../../providers/AuthProvider";
 
+const token = localStorage.getItem("token")
 const Feedback = () => {
-
-  // ✅ Get logged-in user from context
   const { user } = useAuth();
 
-  // ✅ States
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState("");
   const [rating, setRating] = useState(0);
   const [comments, setComments] = useState("");
   const [hover, setHover] = useState(0);
 
-  // ============================
   // Fetch Orders of Logged User
-  // ============================
   useEffect(() => {
     if (!user) return;
 
     axios
-      .get(`http://localhost:8080/orders/user/${user.userId}`)
+      .get(`${config.server}/orders/user/${user.userId}`,
+        {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+      )
       .then((res) => {
         setOrders(res.data);
       })
@@ -31,9 +33,8 @@ const Feedback = () => {
       });
   }, [user]);
 
-  // ============================
+
   // Submit Feedback
-  // ============================
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -54,7 +55,12 @@ const Feedback = () => {
     try {
       await axios.post(
         "http://localhost:8080/feedback/add",
-        payload
+        payload,
+        {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
       );
 
       alert("Feedback submitted successfully!");
@@ -70,9 +76,6 @@ const Feedback = () => {
     }
   };
 
-  // ============================
-  // UI
-  // ============================
   return (
     <div className="feedback-page">
 

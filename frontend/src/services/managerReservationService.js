@@ -22,10 +22,10 @@
 
     const response = await axios.patch(
       `${API_BASE_URL}/${id}/status`,
-      { status }, // ✅ request body
+      { status },
       {
         headers: {
-          Authorization: `Bearer ${token}` // ✅ config
+          Authorization: `Bearer ${token}`
         }
       }
     );
